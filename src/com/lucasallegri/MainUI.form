@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="datdec"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="pathInputLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="compileButton" min="-2" pref="125" max="-2" attributes="1"/>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
+                      <Component id="decompileButton" min="-2" pref="136" max="-2" attributes="1"/>
+                  </Group>
+                  <Component id="pathInput" alignment="1" pref="315" max="32767" attributes="0"/>
+                  <Component id="rsrcConfigInputLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="rsrcConfigPathInput" alignment="1" pref="315" max="32767" attributes="0"/>
+                  <Component id="fileNameInputLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="fileNameInput" alignment="0" pref="315" max="32767" attributes="0"/>
+                  <Component id="fileNameCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="proTip" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="proTipTwo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="proTipThree" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="proTipExample" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="statusLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pathInputLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="pathInput" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Component id="rsrcConfigInputLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="rsrcConfigPathInput" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="fileNameInputLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="fileNameInput" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="fileNameCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="proTip" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="proTipTwo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="proTipThree" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="proTipExample" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="compileButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="decompileButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="decompileButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Decompile"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decompileButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="compileButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Compile"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compileButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="pathInput">
+    </Component>
+    <Component class="javax.swing.JLabel" name="pathInputLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Path to file/files"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="proTip">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="11" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Pro-Tip:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="proTipTwo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="You can use semicolons (;) to compile/decompile"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="proTipThree">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="various files at once."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="proTipExample">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="10" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Example: C:\actor.dat;C:\item.dat or actor.dat;item.dat"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fileNameCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Use .dat or .xml file names instead of full path (configs only)"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="fileNameCheckBoxStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="rsrcConfigPathInput">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="rsrcConfigInputLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Path to rsrc\config"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fileNameInputLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=".dat or .xml file/files"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="fileNameInput">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="statusLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status: Idle."/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
