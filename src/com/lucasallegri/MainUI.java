@@ -36,6 +36,7 @@ public class MainUI extends javax.swing.JFrame {
         setResizable(false);
 
         decompileButton.setText("Decompile");
+        decompileButton.setEnabled(false);
         decompileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 decompileButtonActionPerformed(evt);
@@ -43,17 +44,24 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         compileButton.setText("Compile");
+        compileButton.setEnabled(false);
         compileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 compileButtonActionPerformed(evt);
             }
         });
 
-        pathInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        pathInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pathInputKeyReleased(evt);
+            }
+        });
+
+        pathInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         pathInputLabel.setText("Path to file/files");
 
         proTip.setBackground(new java.awt.Color(0, 0, 0));
-        proTip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        proTip.setFont(new java.awt.Font("Arial", 1, 11));
         proTip.setForeground(new java.awt.Color(255, 0, 51));
         proTip.setText("Pro-Tip:");
 
@@ -61,7 +69,7 @@ public class MainUI extends javax.swing.JFrame {
 
         proTipThree.setText("various files at once.");
 
-        proTipExample.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        proTipExample.setFont(new java.awt.Font("Tahoma", 0, 10));
         proTipExample.setText("Example: C:\\actor.dat;C:\\item.dat or actor.dat;item.dat");
 
         fileNameCheckBox.setText("Use .dat or .xml file names instead of full path (configs only)");
@@ -72,14 +80,24 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         rsrcConfigPathInput.setEnabled(false);
+        rsrcConfigPathInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rsrcConfigPathInputKeyReleased(evt);
+            }
+        });
 
-        rsrcConfigInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rsrcConfigInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         rsrcConfigInputLabel.setText("Path to rsrc\\config");
 
-        fileNameInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        fileNameInputLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         fileNameInputLabel.setText(".dat or .xml file/files");
 
         fileNameInput.setEnabled(false);
+        fileNameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fileNameInputKeyReleased(evt);
+            }
+        });
 
         statusLabel.setText("Status: Idle.");
 
@@ -262,15 +280,76 @@ public class MainUI extends javax.swing.JFrame {
     private void fileNameCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fileNameCheckBoxStateChanged
         if(fileNameCheckBox.isSelected()){
             pathInput.setEnabled(false);
+            pathInput.setText("");
             rsrcConfigPathInput.setEnabled(true);
             fileNameInput.setEnabled(true);
+            if(rsrcConfigPathInput.getText().equals("") || fileNameInput.getText().equals("")){
+                decompileButton.setEnabled(false);
+                compileButton.setEnabled(false);
+            }
         }else{
             pathInput.setEnabled(true);
             rsrcConfigPathInput.setEnabled(false);
+            rsrcConfigPathInput.setText("");
             fileNameInput.setEnabled(false);
+            fileNameInput.setText("");
+            if(pathInput.getText().equals("")){
+                decompileButton.setEnabled(false);
+                compileButton.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_fileNameCheckBoxStateChanged
+
+    private void pathInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pathInputKeyReleased
+        updateButtonsWithPath();
+    }//GEN-LAST:event_pathInputKeyReleased
+
+    private void fileNameInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fileNameInputKeyReleased
+        updateButtonsWithName();
+    }//GEN-LAST:event_fileNameInputKeyReleased
+
+    private void rsrcConfigPathInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rsrcConfigPathInputKeyReleased
+        updateButtonsWithName();
+    }//GEN-LAST:event_rsrcConfigPathInputKeyReleased
     
+    public void updateButtonsWithPath(){
+        if(pathInput.getText().contains("dat")){
+            decompileButton.setEnabled(true);
+            compileButton.setEnabled(false);
+            statusLabel.setText("Status: Ready to decompile, press the button below.");
+        }else if(pathInput.getText().contains("xml")){
+            decompileButton.setEnabled(false);
+            compileButton.setEnabled(true);
+            statusLabel.setText("Status: Ready to compile, press the button below.");
+        }else{
+            decompileButton.setEnabled(false);
+            compileButton.setEnabled(false);
+            statusLabel.setText("Status: Idle.");
+        }
+    }
+
+    public void updateButtonsWithName(){
+        if(rsrcConfigPathInput.getText().equals("")){
+            statusLabel.setText("Status: Missing rsrc\\config path, can't proceed :(");
+            decompileButton.setEnabled(false);
+            compileButton.setEnabled(false);
+        }else{
+            if(fileNameInput.getText().contains("dat")){
+                decompileButton.setEnabled(true);
+                compileButton.setEnabled(false);
+                statusLabel.setText("Status: Ready to decompile, press the button below.");
+            }else if(fileNameInput.getText().contains("xml")){
+                decompileButton.setEnabled(false);
+                compileButton.setEnabled(true);
+                statusLabel.setText("Status: Ready to compile, press the button below.");
+            }else{
+                decompileButton.setEnabled(false);
+                compileButton.setEnabled(false);
+                statusLabel.setText("Status: Idle.");
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */

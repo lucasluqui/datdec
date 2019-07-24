@@ -90,6 +90,7 @@
     <Component class="javax.swing.JButton" name="decompileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Decompile"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decompileButtonActionPerformed"/>
@@ -98,12 +99,16 @@
     <Component class="javax.swing.JButton" name="compileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Compile"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compileButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="pathInput">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pathInputKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="pathInputLabel">
       <Properties>
@@ -157,6 +162,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rsrcConfigPathInputKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="rsrcConfigInputLabel">
       <Properties>
@@ -178,6 +186,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fileNameInputKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="statusLabel">
       <Properties>
