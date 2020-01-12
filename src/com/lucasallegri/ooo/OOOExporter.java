@@ -15,7 +15,7 @@ public class OOOExporter {
 	
     public static void _export(FileInputStream source, OutputStream dest) throws IOException {
         b in = new b(source);
-        aA out = new aA(dest);
+        aA out = new aA(dest);     
         Object o = null;
     	while (true) {
     		try {

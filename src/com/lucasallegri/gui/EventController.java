@@ -39,6 +39,7 @@ public class EventController {
 			in = new FileInputStream(source);
 			String dest = path.replaceFirst("\\.dat$", ".xml");
 			FileOutputStream out = new FileOutputStream(dest);
+			//if(DatdecContext.useWatermark) out.write(DatdecConstants.exportWatermark.getBytes());
 			OOOExporter._export(in, out);
 			DatdecGUI.pushState(DatdecContext.selectedConfig + " was decompiled.");
 			
@@ -64,6 +65,7 @@ public class EventController {
 				in = new FileInputStream(source);
 				String dest = path.replaceFirst("\\.dat$", ".xml");
 				FileOutputStream out = new FileOutputStream(dest);
+				//if(DatdecContext.useWatermark) out.write(DatdecConstants.exportWatermark.getBytes());
 				OOOExporter._export(in, out);
 				
 			} catch (IOException e) {
@@ -87,6 +89,7 @@ public class EventController {
 			String dest = path.replaceFirst("\\.xml$", ".dat");
 			FileOutputStream out = new FileOutputStream(dest);
 			OOOImporter._import(in, out);
+			source.delete();
 			DatdecGUI.pushState(DatdecContext.selectedConfig + " was compiled.");
 			
 		} catch (IOException e) {

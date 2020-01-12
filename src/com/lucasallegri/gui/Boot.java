@@ -18,6 +18,7 @@ public class Boot {
 		if(_list.size() > 0) {
 			DatdecGUI.decompileButton.setEnabled(true);
 			DatdecGUI.decompileAllButton.setEnabled(true);
+			DatdecGUI.compileAllButton.setEnabled(true);
 		}
 		
 	}
