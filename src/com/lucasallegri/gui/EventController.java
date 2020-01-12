@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.lucasallegri.ooo.OOOExporter;
+import com.lucasallegri.ooo.OOOImporter;
 import com.lucasallegri.util.FileUtil;
 
 public class EventController {
@@ -69,14 +70,30 @@ public class EventController {
 			}
 			
 		}
-		
 	}
 	
 	public static void compile(ActionEvent _action) {
 		
+		File source = new File(getPathToConfig(DatdecContext.selectedConfig));
+		FileInputStream in = null;
+		String path = source.getAbsolutePath();
+		
+		try {
+			
+			in = new FileInputStream(source);
+			String dest = path.replaceFirst("\\.xml$", ".dat");
+			FileOutputStream out = new FileOutputStream(dest);
+			OOOImporter._import(in, out);
+			DatdecGUI.pushState(DatdecContext.selectedConfig + " was compiled.");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static void compileAll(ActionEvent _action) {}
+	public static void compileAll(ActionEvent _action) {
+		
+	}
 	
 	private static String getPathToConfig(String name) {
 		return System.getProperty("user.dir") + File.separator + "rsrc" + File.separator + "config" + File.separator + name;

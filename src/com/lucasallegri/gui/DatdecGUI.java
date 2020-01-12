@@ -27,6 +27,8 @@ public class DatdecGUI {
 	public static JButton decompileAllButton;
 	public static JButton compileButton;
 	public static JButton compileAllButton;
+	
+	protected static String version = "2.0.0_a2";
 
 	/**
 	 * Launch the application.
@@ -163,7 +165,7 @@ public class DatdecGUI {
 		stateLabel.setBounds(10, 236, 217, 14);
 		frmDatdecGUI.getContentPane().add(stateLabel);
 		
-		JLabel lblVersion = new JLabel("v.2.0.0_A");
+		JLabel lblVersion = new JLabel("v." + version);
 		lblVersion.setFont(fontReg);
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(237, 236, 62, 14);
