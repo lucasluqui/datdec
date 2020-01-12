@@ -151,12 +151,22 @@ public class DatdecGUI {
 		chckbxWatermark.setSelected(true);
 		chckbxWatermark.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxWatermark.setFont(fontReg);
+		chckbxWatermark.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent _action) {
+				DatdecContext.useWatermark = chckbxWatermark.isSelected() ? true : false;
+			}
+		});
 		chckbxWatermark.setBounds(40, 163, 230, 23);
 		frmDatdecGUI.getContentPane().add(chckbxWatermark);
 		
 		JCheckBox chckbxMakeBackups = new JCheckBox("Make backups");
 		chckbxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxMakeBackups.setFont(fontReg);
+		chckbxMakeBackups.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent _action) {
+				DatdecContext.doBackups = chckbxMakeBackups.isSelected() ? true : false;
+			}
+		});
 		chckbxMakeBackups.setBounds(40, 189, 230, 23);
 		frmDatdecGUI.getContentPane().add(chckbxMakeBackups);
 		
