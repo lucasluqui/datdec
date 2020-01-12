@@ -28,7 +28,7 @@ public class DatdecGUI {
 	public static JButton compileButton;
 	public static JButton compileAllButton;
 	
-	protected static String version = "2.0.0_a2";
+	protected static String version = "2.0.0";
 
 	/**
 	 * Launch the application.
