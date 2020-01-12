@@ -77,6 +77,7 @@ public class DatdecGUI {
 		frmDatdecGUI = new JFrame();
 		frmDatdecGUI.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
 		frmDatdecGUI.setResizable(false);
+		frmDatdecGUI.setLocationRelativeTo(null);
 		frmDatdecGUI.setTitle("Datdec GUI");
 		frmDatdecGUI.setBounds(100, 100, 325, 300);
 		frmDatdecGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
