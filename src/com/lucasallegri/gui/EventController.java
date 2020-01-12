@@ -53,6 +53,8 @@ public class EventController {
 		
 		for(int i = 0; i < _list.size(); i++) {
 			
+			if(_list.get(i).endsWith(".xml")) continue;
+			
 			File source = new File(getPathToConfig(_list.get(i)));
 			FileInputStream in = null;
 			String path = source.getAbsolutePath();
@@ -63,13 +65,14 @@ public class EventController {
 				String dest = path.replaceFirst("\\.dat$", ".xml");
 				FileOutputStream out = new FileOutputStream(dest);
 				OOOExporter._export(in, out);
-				DatdecGUI.pushState(_list.size() + " configs were decompiled.");
 				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		}
+		
+		DatdecGUI.pushState(_list.size() + " configs were decompiled.");
+		
 	}
 	
 	public static void compile(ActionEvent _action) {
@@ -92,6 +95,31 @@ public class EventController {
 	}
 	
 	public static void compileAll(ActionEvent _action) {
+		
+		List<String> _list = FileUtil.fileNamesInDirectory("rsrc/config/");
+		
+		for(int i = 0; i < _list.size(); i++) {
+			
+			if(_list.get(i).endsWith(".dat")) continue;
+			
+			File source = new File(getPathToConfig(_list.get(i)));
+			FileInputStream in = null;
+			String path = source.getAbsolutePath();
+			
+			try {
+				
+				in = new FileInputStream(source);
+				String dest = path.replaceFirst("\\.xml$", ".dat");
+				FileOutputStream out = new FileOutputStream(dest);
+				OOOImporter._import(in, out);
+				source.delete();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		DatdecGUI.pushState(_list.size() + " configs were compiled.");
 		
 	}
 	
