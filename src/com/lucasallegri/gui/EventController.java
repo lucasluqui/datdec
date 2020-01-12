@@ -6,10 +6,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import com.lucasallegri.ooo.OOOExporter;
 import com.lucasallegri.ooo.OOOImporter;
+import com.lucasallegri.util.ConfigChoice;
 import com.lucasallegri.util.FileUtil;
 
 public class EventController {
@@ -42,6 +46,7 @@ public class EventController {
 			//if(DatdecContext.useWatermark) out.write(DatdecConstants.exportWatermark.getBytes());
 			OOOExporter._export(in, out);
 			DatdecGUI.pushState(DatdecContext.selectedConfig + " was decompiled.");
+			ConfigChoice.populate();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -74,6 +79,7 @@ public class EventController {
 		}
 		
 		DatdecGUI.pushState(_list.size() + " configs were decompiled.");
+		ConfigChoice.populate();
 		
 	}
 	
@@ -87,10 +93,12 @@ public class EventController {
 			
 			in = new FileInputStream(source);
 			String dest = path.replaceFirst("\\.xml$", ".dat");
+			if(DatdecContext.doBackups) doBackup(dest);
 			FileOutputStream out = new FileOutputStream(dest);
 			OOOImporter._import(in, out);
 			source.delete();
 			DatdecGUI.pushState(DatdecContext.selectedConfig + " was compiled.");
+			ConfigChoice.populate();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -113,6 +121,7 @@ public class EventController {
 				
 				in = new FileInputStream(source);
 				String dest = path.replaceFirst("\\.xml$", ".dat");
+				if(DatdecContext.doBackups) doBackup(dest);
 				FileOutputStream out = new FileOutputStream(dest);
 				OOOImporter._import(in, out);
 				source.delete();
@@ -123,7 +132,16 @@ public class EventController {
 		}
 		
 		DatdecGUI.pushState(_list.size() + " configs were compiled.");
+		ConfigChoice.populate();
 		
+	}
+	
+	private static void doBackup(String target) {
+		try {
+			Files.copy(Paths.get(target), Paths.get(target+".backup"), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static String getPathToConfig(String name) {

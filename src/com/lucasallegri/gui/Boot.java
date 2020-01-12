@@ -1,26 +1,10 @@
 package com.lucasallegri.gui;
 
-import java.util.List;
-
-import com.lucasallegri.util.FileUtil;
+import com.lucasallegri.util.ConfigChoice;
 
 public class Boot {
 	
 	public static void onBoot() {
-		populateConfigList();
+		ConfigChoice.populate();
 	}
-	
-	public static void populateConfigList() {
-		
-		List<String> _list = FileUtil.fileNamesInDirectory("rsrc/config/");
-		DatdecGUI.configCountLabel.setText("(" + _list.size() + " found)");
-		for(int i = 0; i < _list.size(); i++) DatdecGUI.configList.add(_list.get(i));
-		if(_list.size() > 0) {
-			DatdecGUI.decompileButton.setEnabled(true);
-			DatdecGUI.decompileAllButton.setEnabled(true);
-			DatdecGUI.compileAllButton.setEnabled(true);
-		}
-		
-	}
-
 }

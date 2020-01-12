@@ -147,7 +147,7 @@ public class DatdecGUI {
 		});
 		frmDatdecGUI.getContentPane().add(compileAllButton);
 		
-		JCheckBox chckbxWatermark = new JCheckBox("Include watermark");
+		/* JCheckBox chckbxWatermark = new JCheckBox("Include watermark");
 		chckbxWatermark.setSelected(true);
 		chckbxWatermark.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxWatermark.setFont(fontReg);
@@ -158,6 +158,7 @@ public class DatdecGUI {
 		});
 		chckbxWatermark.setBounds(40, 163, 230, 23);
 		frmDatdecGUI.getContentPane().add(chckbxWatermark);
+		*/
 		
 		JCheckBox chckbxMakeBackups = new JCheckBox("Make backups");
 		chckbxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
