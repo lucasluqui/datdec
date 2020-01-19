@@ -27,8 +27,6 @@ public class DatdecGUI {
 	public static JButton decompileAllButton;
 	public static JButton compileButton;
 	public static JButton compileAllButton;
-	
-	protected static String version = "2.0.1";
 
 	/**
 	 * Launch the application.
@@ -148,19 +146,6 @@ public class DatdecGUI {
 		});
 		frmDatdecGUI.getContentPane().add(compileAllButton);
 		
-		/* JCheckBox chckbxWatermark = new JCheckBox("Include watermark");
-		chckbxWatermark.setSelected(true);
-		chckbxWatermark.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxWatermark.setFont(fontReg);
-		chckbxWatermark.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent _action) {
-				DatdecContext.useWatermark = chckbxWatermark.isSelected() ? true : false;
-			}
-		});
-		chckbxWatermark.setBounds(40, 163, 230, 23);
-		frmDatdecGUI.getContentPane().add(chckbxWatermark);
-		*/
-		
 		JCheckBox chckbxMakeBackups = new JCheckBox("Make backups");
 		chckbxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxMakeBackups.setFont(fontReg);
@@ -177,7 +162,7 @@ public class DatdecGUI {
 		stateLabel.setBounds(10, 236, 217, 14);
 		frmDatdecGUI.getContentPane().add(stateLabel);
 		
-		JLabel lblVersion = new JLabel("v." + version);
+		JLabel lblVersion = new JLabel("v." + DatdecConstants.version);
 		lblVersion.setFont(fontReg);
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(237, 236, 62, 14);
