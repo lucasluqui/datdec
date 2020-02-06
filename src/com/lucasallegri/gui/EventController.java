@@ -35,7 +35,11 @@ public class EventController {
 	
 	public static void decompileAll(ActionEvent _action) {
 		
-		
+		if(DatdecContext.useOldClassMappings) {
+			LegacyDecompile.decompileAll();
+		} else {
+			Decompile.decompileAll();
+		}
 		
 	}
 	
