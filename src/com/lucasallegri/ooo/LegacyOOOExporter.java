@@ -1,21 +1,16 @@
 package com.lucasallegri.ooo;
 
-	/**
-	 * 	Based on Fission Mailed#4370's work.
-	 * 	(Discord ID: 342110230861316097)
-	 */
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import com.threerings.export.b; 			// BinaryImporter
-import com.threerings.export.aA; 			// XMLExporter
+import com.threerings.export.ax; 			// XMLExporter
 
-public class OOOExporter {
+public class LegacyOOOExporter {
 	
     public static void export(FileInputStream source, OutputStream dest) throws IOException {
         b in = new b(source);
-        aA out = new aA(dest);     
+        ax out = new ax(dest);    
         Object o = null;
     	while (true) {
     		try {

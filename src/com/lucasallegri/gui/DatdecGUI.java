@@ -146,16 +146,16 @@ public class DatdecGUI {
 		});
 		frmDatdecGUI.getContentPane().add(compileAllButton);
 		
-		JCheckBox chckbxMakeBackups = new JCheckBox("Make backups");
-		chckbxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxMakeBackups.setFont(fontReg);
-		chckbxMakeBackups.addActionListener(new ActionListener() {
+		JCheckBox checkboxMakeBackups = new JCheckBox("Make backups when compiling");
+		checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
+		checkboxMakeBackups.setFont(fontReg);
+		checkboxMakeBackups.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent _action) {
-				DatdecContext.doBackups = chckbxMakeBackups.isSelected() ? true : false;
+				DatdecContext.doBackups = checkboxMakeBackups.isSelected() ? true : false;
 			}
 		});
-		chckbxMakeBackups.setBounds(40, 189, 230, 23);
-		frmDatdecGUI.getContentPane().add(chckbxMakeBackups);
+		checkboxMakeBackups.setBounds(40, 194, 230, 23);
+		frmDatdecGUI.getContentPane().add(checkboxMakeBackups);
 		
 		stateLabel = new JLabel("State: Awaiting interaction.");
 		stateLabel.setFont(fontReg);
@@ -168,6 +168,17 @@ public class DatdecGUI {
 		lblVersion.setBounds(237, 236, 62, 14);
 		frmDatdecGUI.getContentPane().add(lblVersion);
 		
+		JCheckBox checkboxUseOldMappings = new JCheckBox("Use old class mappings (older versions)");
+		checkboxUseOldMappings.setHorizontalAlignment(SwingConstants.CENTER);
+		checkboxUseOldMappings.setFont(fontReg);
+		checkboxUseOldMappings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent _action) {
+				DatdecContext.useOldClassMappings = checkboxUseOldMappings.isSelected() ? true : false;
+			}
+		});
+		checkboxUseOldMappings.setBounds(40, 168, 230, 23);
+		frmDatdecGUI.getContentPane().add(checkboxUseOldMappings);
+		
 		Boot.onBoot();
 		
 	}
@@ -175,5 +186,4 @@ public class DatdecGUI {
 	public static void pushState(String state) {
 		stateLabel.setText("State: " + state);
 	}
-	
 }
