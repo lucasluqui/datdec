@@ -29,7 +29,10 @@ hs_err_pid*
 *.dat
 
 # Artifacts
-out/*
+out/
+
+# Libraries
+lib/
 
 # IntelliJ Idea files
 .idea/*
