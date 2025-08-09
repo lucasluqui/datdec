@@ -5,7 +5,6 @@ import java.awt.event.ItemEvent;
 
 import com.lucasallegri.compile.Compile;
 import com.lucasallegri.decompile.Decompile;
-import com.lucasallegri.decompile.LegacyDecompile;
 
 public class EventController {
 	
@@ -26,7 +25,7 @@ public class EventController {
 	public static void decompile(ActionEvent _action) {
 		
 		if(DatdecContext.useOldClassMappings) {
-			LegacyDecompile.decompile();
+			//LegacyDecompile.decompile();
 		} else {
 			Decompile.decompile();
 		}
@@ -36,7 +35,7 @@ public class EventController {
 	public static void decompileAll(ActionEvent _action) {
 		
 		if(DatdecContext.useOldClassMappings) {
-			LegacyDecompile.decompileAll();
+			//LegacyDecompile.decompileAll();
 		} else {
 			Decompile.decompileAll();
 		}
