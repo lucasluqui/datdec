@@ -144,7 +144,7 @@ public class DatdecCLI {
                 .hasArgs()
                 .optionalArg(true)
                 .required(false)
-                .argName("file names, not")
+                .argName("file names")
                 .get();
         options.addOption(compile);
 
