@@ -1,4 +1,4 @@
-package com.lucasallegri.util;
+package com.lucasallegri.datdec.util;
 
 import java.io.File;
 import java.io.IOException;

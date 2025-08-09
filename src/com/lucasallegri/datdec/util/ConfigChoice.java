@@ -1,8 +1,8 @@
-package com.lucasallegri.util;
+package com.lucasallegri.datdec.util;
 
 import java.util.List;
 
-import com.lucasallegri.gui.DatdecGUI;
+import com.lucasallegri.datdec.gui.DatdecGUI;
 
 public class ConfigChoice {
 	

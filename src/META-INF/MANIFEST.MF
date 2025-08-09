@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: com.lucasallegri.gui.DatdecGUI
+Main-Class: com.lucasallegri.datdec.cli.DatdecCLI
 Class-Path: projectx-pcode.jar
 

@@ -1,10 +1,10 @@
-package com.lucasallegri.gui;
+package com.lucasallegri.datdec.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 
-import com.lucasallegri.compile.Compile;
-import com.lucasallegri.decompile.Decompile;
+import com.lucasallegri.datdec.compile.Compile;
+import com.lucasallegri.datdec.decompile.Decompile;
 
 public class EventController {
 	

@@ -1,4 +1,4 @@
-package com.lucasallegri.ooo;
+package com.lucasallegri.datdec.ooo;
 
 	/**
 	 * 	Based on Fission Mailed#4370's work.

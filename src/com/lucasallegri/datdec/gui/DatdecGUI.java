@@ -1,4 +1,6 @@
-package com.lucasallegri.gui;
+package com.lucasallegri.datdec.gui;
+
+import com.lucasallegri.datdec.DatdecConstants;
 
 import java.awt.EventQueue;
 
@@ -29,9 +31,9 @@ public class DatdecGUI {
 	public static JButton compileAllButton;
 
 	/**
-	 * Launch the application.
+	 * Launch the application GUI.
 	 */
-	public static void main(String[] args) {
+	public static void startGUI() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
