@@ -1,8 +1,10 @@
-package com.lucasallegri.datdec.util;
+package com.lucasallegri.datdec.gui.util;
 
 import java.util.List;
 
+import com.lucasallegri.datdec.gui.DatdecContext;
 import com.lucasallegri.datdec.gui.DatdecGUI;
+import com.lucasallegri.datdec.util.FileUtil;
 
 public class ConfigChoice {
 	
@@ -18,7 +20,7 @@ public class ConfigChoice {
 			DatdecGUI.decompileAllButton.setEnabled(true);
 			DatdecGUI.compileAllButton.setEnabled(true);
 		}
-		
+		DatdecContext.selectedConfig = DatdecGUI.configList.getItem(0);
 	}
 
 }

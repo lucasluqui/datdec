@@ -9,7 +9,7 @@ import java.util.List;
 import com.lucasallegri.datdec.gui.DatdecContext;
 import com.lucasallegri.datdec.gui.DatdecGUI;
 import com.lucasallegri.datdec.ooo.OOOImporter;
-import com.lucasallegri.datdec.util.ConfigChoice;
+import com.lucasallegri.datdec.gui.util.ConfigChoice;
 import com.lucasallegri.datdec.util.FileUtil;
 import com.lucasallegri.datdec.util.PathUtil;
 
@@ -29,15 +29,13 @@ public class Compile {
 			FileOutputStream out = new FileOutputStream(dest);
 			OOOImporter._import(in, out);
 			source.delete();
-			DatdecGUI.pushState(DatdecContext.selectedConfig + " was compiled.");
-			ConfigChoice.populate();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void compileAll() {
+	public static int compileAll() {
 		
 		List<String> _list = FileUtil.fileNamesInDirectory("rsrc/config/");
 		
@@ -63,8 +61,7 @@ public class Compile {
 			}
 		}
 		
-		DatdecGUI.pushState(_list.size() + " configs were compiled.");
-		ConfigChoice.populate();
+		return _list.size();
 		
 	}
 

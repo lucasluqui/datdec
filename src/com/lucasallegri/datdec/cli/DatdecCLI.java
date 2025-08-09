@@ -1,6 +1,9 @@
 package com.lucasallegri.datdec.cli;
 
 import com.lucasallegri.datdec.DatdecConstants;
+import com.lucasallegri.datdec.compile.Compile;
+import com.lucasallegri.datdec.decompile.Decompile;
+import com.lucasallegri.datdec.gui.DatdecContext;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -15,7 +18,6 @@ public class DatdecCLI {
 
     /**
      * Main method of the application. Decides whether GUI or CLI should be used.
-     * @param args
      */
     public static void main(String[] args) {
         Options options = createOptions();
@@ -46,17 +48,66 @@ public class DatdecCLI {
      * Process command line options. Entry point for CLI.
      */
     private static void processOptions(CommandLine cmd, Options options) {
+
+        // Help option
         if (cmd.hasOption("h")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("java -jar datdec.jar [options]", options);
             System.exit(0);
         }
 
-        if (cmd.hasOption("d")) {
-            String[] files = cmd.getOptionValues("d");
-            for (String file : files) {
+        // Use old class mappings
+        if (cmd.hasOption("m")) {
+            DatdecContext.useOldClassMappings = true;
+        }
 
+        // Decompile files specified by the argument
+        // if no files given, decompile all under rsrc/config.
+        if (cmd.hasOption("d")) {
+            String[] configs = cmd.getOptionValues("d");
+            int nConfigs;
+            if (configs != null && configs.length > 0) {
+                nConfigs = 0;
+                for (String config : configs) {
+                    if (!config.contains(".dat")) {
+                        System.out.printf("Warning: %s cannot be decompiled, is not dat.\n",config);
+                        continue;
+                    }
+                    DatdecContext.selectedConfig = config;
+                    Decompile.decompile();
+                    nConfigs++;
+                }
+            } else {
+                nConfigs = Decompile.decompileAll();
             }
+            System.out.printf("%s configs were decompiled.", nConfigs);
+        }
+
+        // Create file backup when compiling option
+        if (cmd.hasOption("b")) {
+            DatdecContext.doBackups = true;
+        }
+
+        // Compile files specified by the argument
+        // if no files given, compile all under rsrc/config.
+        if (cmd.hasOption("c")) {
+            String[] configs = cmd.getOptionValues("c");
+            int nConfigs;
+            if (configs.length > 0) {
+                nConfigs = 0;
+                for (String config : configs) {
+                    if (!config.contains(".xml")){
+                        System.out.printf("Warning: %s cannot be compiled, is not xml.\n",config);
+                        continue;
+                    }
+                    DatdecContext.selectedConfig = config;
+                    Compile.compile();
+                    nConfigs++;
+                }
+            } else {
+                nConfigs = Compile.compileAll();
+            }
+            System.out.printf("%s configs were decompiled.", nConfigs);
         }
     }
 
@@ -78,20 +129,22 @@ public class DatdecCLI {
         // List of files to decompile
         Option decompile = Option.builder("d")
                 .longOpt("decompile")
-                .desc("List of .dat files to decompile")
+                .desc("List of .dat files to decompile. Not full paths. If no files are given, will decompile everything under rsrc/config.")
                 .hasArgs()
+                .optionalArg(true)
                 .required(false)
-                .argName("dat files")
+                .argName("file names")
                 .get();
         options.addOption(decompile);
 
         // List of files to compile
         Option compile = Option.builder("c")
                 .longOpt("compile")
-                .desc("List of .xml files to compile")
+                .desc("List of .xml files to compile. Not full paths. If no files are given, will compile everything under rsrc/config.")
                 .hasArgs()
+                .optionalArg(true)
                 .required(false)
-                .argName("file paths")
+                .argName("file names, not")
                 .get();
         options.addOption(compile);
 

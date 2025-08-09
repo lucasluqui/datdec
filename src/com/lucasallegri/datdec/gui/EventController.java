@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 
 import com.lucasallegri.datdec.compile.Compile;
 import com.lucasallegri.datdec.decompile.Decompile;
+import com.lucasallegri.datdec.gui.util.ConfigChoice;
 
 public class EventController {
 	
@@ -25,9 +26,11 @@ public class EventController {
 	public static void decompile(ActionEvent _action) {
 		
 		if(DatdecContext.useOldClassMappings) {
-			//LegacyDecompile.decompile();
+			//LegacyDecompile.decompile());
 		} else {
 			Decompile.decompile();
+			DatdecGUI.pushState(DatdecContext.selectedConfig + " was decompiled.");
+			ConfigChoice.populate();
 		}
 		
 	}
@@ -37,20 +40,26 @@ public class EventController {
 		if(DatdecContext.useOldClassMappings) {
 			//LegacyDecompile.decompileAll();
 		} else {
-			Decompile.decompileAll();
+			int nFiles = Decompile.decompileAll();
+			DatdecGUI.pushState(String.format("%s configs were decompiled.", nFiles));
+			ConfigChoice.populate();
 		}
 		
 	}
 	
 	public static void compile(ActionEvent _action) {
-		
+
 		Compile.compile();
+		DatdecGUI.pushState(DatdecContext.selectedConfig + " was compiled.");
+		ConfigChoice.populate();
 		
 	}
 	
 	public static void compileAll(ActionEvent _action) {
 		
-		Compile.compileAll();
+		int nFiles = Compile.compileAll();
+		DatdecGUI.pushState(String.format("%s configs were compiled.", nFiles));
+		ConfigChoice.populate();
 		
 	}
 
