@@ -148,10 +148,10 @@ public class DatdecCLI {
                 .get();
         options.addOption(compile);
 
-        // Switch to back-up files when compiling them from xml
+        // Switch to back-up existing .dat files when compiling them from xml
         Option backups = Option.builder("b")
                 .longOpt("backups")
-                .desc("Back-up xml files when compiling.")
+                .desc("Back-up existing dat when compiling, so that the result of compilation doesn't overwrite them.")
                 .hasArg(false)
                 .required(false)
                 .get();
