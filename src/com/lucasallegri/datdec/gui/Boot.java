@@ -1,10 +1,10 @@
-package com.lucasallegri.gui;
+package com.lucasallegri.datdec.gui;
+
+import com.lucasallegri.datdec.gui.util.ConfigChoice;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager.LookAndFeelInfo;
-
-import com.lucasallegri.util.ConfigChoice;
 
 public class Boot {
 	

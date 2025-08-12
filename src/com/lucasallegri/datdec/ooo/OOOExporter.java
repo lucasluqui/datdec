@@ -1,4 +1,4 @@
-package com.lucasallegri.ooo;
+package com.lucasallegri.datdec.ooo;
 
 	/**
 	 * 	Based on Fission Mailed#4370's work.
@@ -9,13 +9,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import com.threerings.export.b; 			// BinaryImporter
-import com.threerings.export.aA; 			// XMLExporter
+import com.threerings.export.aC; 			// XMLExporter
 
 public class OOOExporter {
 	
     public static void export(FileInputStream source, OutputStream dest) throws IOException {
         b in = new b(source);
-        aA out = new aA(dest);     
+        aC out = new aC(dest);
         Object o = null;
     	while (true) {
     		try {

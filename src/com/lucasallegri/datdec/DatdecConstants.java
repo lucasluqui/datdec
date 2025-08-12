@@ -1,4 +1,4 @@
-package com.lucasallegri.gui;
+package com.lucasallegri.datdec;
 
 public class DatdecConstants {
 	
