@@ -61,7 +61,7 @@ public class DatdecCLI
         nConfigs = 0;
         for (String config : configs) {
           if (!config.contains(".dat")) {
-            System.out.printf("Warning: %s cannot be exported, is not dat.\n", config);
+            System.out.printf("Warning: %s cannot be exported, is not .dat.\n", config);
             continue;
           }
           Export.exportSingle(config);
@@ -87,7 +87,7 @@ public class DatdecCLI
         nConfigs = 0;
         for (String config : configs) {
           if (!config.contains(".xml")) {
-            System.out.printf("Warning: %s cannot be imported, is not xml.\n", config);
+            System.out.printf("Warning: %s cannot be imported, is not .xml.\n", config);
             continue;
           }
           Import.importSingle(config);
@@ -139,10 +139,10 @@ public class DatdecCLI
       .get();
     options.addOption(compile);
 
-    // Switch to back-up existing .dat files when compiling them from xml
+    // Switch to back-up existing .dat files when importing them from .xml
     Option backups = Option.builder("b")
       .longOpt("backups")
-      .desc("Back-up existing dat when compiling, so that the result of compilation doesn't overwrite them.")
+      .desc("Back-up existing .dat when importing, so that the result doesn't overwrite them.")
       .hasArg(false)
       .required(false)
       .get();
