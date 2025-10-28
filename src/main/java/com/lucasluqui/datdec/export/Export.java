@@ -10,24 +10,23 @@ import java.util.List;
 
 public class Export
 {
-  public static void exportSingle (String file)
+  public static void exportSingle (File file)
   {
     convert(file);
   }
 
   public static int exportAll ()
   {
-    List<String> list = FileUtil.fileNamesInDirectory("rsrc/config/");
-    for (String file : list) {
-      if (file.endsWith(".dat")) convert(file);
+    List<String> fileNames = FileUtil.fileNamesInDirectory("rsrc/config/");
+    for (String fileName : fileNames) {
+      if (fileName.endsWith(".dat")) convert(new File(PathUtil.getPathToConfig(fileName)));
     }
-    return list.size();
+    return fileNames.size();
   }
 
-  private static void convert (String file)
+  private static void convert (File file)
   {
-    File source = new File(PathUtil.getPathToConfig(file));
-    String path = source.getAbsolutePath();
+    String path = file.getAbsolutePath();
     try {
       String dest = path.replaceFirst("\\.dat$", ".xml");
       BinaryToXMLConverter.convert(path, dest);

@@ -4,7 +4,9 @@ import com.lucasluqui.datdec.BuildConfig;
 import com.lucasluqui.datdec.DatdecSettings;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 
 public class DatdecGUI
 {
@@ -43,63 +45,79 @@ public class DatdecGUI
     guiFrame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
     guiFrame.setResizable(false);
     guiFrame.setLocationRelativeTo(null);
-    guiFrame.setTitle("Datdec");
+    guiFrame.setTitle("datdec (" + BuildConfig.getVersion() + ")");
     guiFrame.setBounds(100, 100, 325, 300);
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     guiFrame.getContentPane().setLayout(null);
 
-    JLabel lblSelectConfigFile = new JLabel("Select config file");
-    lblSelectConfigFile.setHorizontalAlignment(SwingConstants.CENTER);
-    lblSelectConfigFile.setBounds(10, 13, 280, 14);
-    guiFrame.getContentPane().add(lblSelectConfigFile);
+    fileChooser = new JFileChooser();
+    fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/rsrc"));
+    fileChooser.setDialogTitle("Select config");
+    fileChooser.setApproveButtonText("Select");
+    FileNameExtensionFilter restrict = new FileNameExtensionFilter(".dat, .xml", "dat", "xml");
+    fileChooser.setAcceptAllFileFilterUsed(false);
+    fileChooser.addChoosableFileFilter(restrict);
 
-    configList = new Choice();
-    configList.setBounds(96, 33, 110, 20);
-    configList.addItemListener(event -> eventHandler.configChoiceChanged(event));
-    guiFrame.getContentPane().add(configList);
+    selectConfigButton = new JButton();
+    selectConfigButton.setText("Select...");
+    selectConfigButton.setBounds(95, 25, 120, 25);
+    selectConfigButton.addActionListener(action -> {
+      int result = fileChooser.showOpenDialog(null);
+      if (result == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        String fileName = file.getName();
+        if (fileName.endsWith(".dat") || fileName.endsWith(".xml")) {
+          selectedFile = file;
+          eventHandler.selectedConfigChanged(fileName);
+        } else {
+          System.out.println("Tried to select invalid file. " + file.getPath());
+        }
+      }
+    });
+    guiFrame.getContentPane().add(selectConfigButton);
 
-    configCountLabel = new JLabel("(...)");
-    configCountLabel.setBounds(212, 36, 74, 14);
-    guiFrame.getContentPane().add(configCountLabel);
+    labelSelectedConfigName = new JLabel("Selected: None.");
+    labelSelectedConfigName.setHorizontalAlignment(SwingConstants.CENTER);
+    labelSelectedConfigName.setBounds(0, 55, 310, 15);
+    guiFrame.getContentPane().add(labelSelectedConfigName);
 
     exportButton = new JButton("Export");
     exportButton.setEnabled(false);
-    exportButton.addActionListener(action -> eventHandler.exportSingle(action));
-    exportButton.setBounds(40, 90, 110, 23);
+    exportButton.addActionListener(eventHandler::exportSingle);
+    exportButton.setBounds(40, 90, 110, 25);
     guiFrame.getContentPane().add(exportButton);
-
-    exportAllButton = new JButton("Export All");
-    exportAllButton.setEnabled(false);
-    exportAllButton.addActionListener(action -> eventHandler.exportAll(action));
-    exportAllButton.setBounds(160, 90, 110, 23);
-    guiFrame.getContentPane().add(exportAllButton);
 
     importButton = new JButton("Import");
     importButton.setEnabled(false);
-    importButton.addActionListener(action -> eventHandler.importSingle(action));
-    importButton.setBounds(40, 124, 110, 23);
+    importButton.addActionListener(eventHandler::importSingle);
+    importButton.setBounds(160, 90, 110, 25);
     guiFrame.getContentPane().add(importButton);
 
-    importAllButton = new JButton("Import All");
+    JSeparator separator = new JSeparator();
+    separator.setBounds(25, 126, 255, 5);
+    guiFrame.getContentPane().add(separator);
+
+    exportAllButton = new JButton("Export All Configs");
+    exportAllButton.setEnabled(false);
+    exportAllButton.addActionListener(eventHandler::exportAll);
+    exportAllButton.setBounds(89, 140, 130, 25);
+    guiFrame.getContentPane().add(exportAllButton);
+
+    importAllButton = new JButton("Import All Configs");
     importAllButton.setEnabled(false);
-    importAllButton.setBounds(160, 124, 110, 23);
-    importAllButton.addActionListener(action -> eventHandler.importAll(action));
+    importAllButton.setBounds(89, 175, 130, 25);
+    importAllButton.addActionListener(eventHandler::importAll);
     guiFrame.getContentPane().add(importAllButton);
 
-    JCheckBox checkboxMakeBackups = new JCheckBox("Make backups when exporting");
+    JCheckBox checkboxMakeBackups = new JCheckBox("Make back-ups when importing");
     checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
     checkboxMakeBackups.addActionListener(action -> DatdecSettings.doBackups = checkboxMakeBackups.isSelected());
-    checkboxMakeBackups.setBounds(40, 194, 230, 23);
+    checkboxMakeBackups.setBounds(40, 210, 230, 25);
     guiFrame.getContentPane().add(checkboxMakeBackups);
 
     labelState = new JLabel("");
     labelState.setBounds(10, 236, 217, 14);
     guiFrame.getContentPane().add(labelState);
-
-    JLabel labelVersion = new JLabel("v" + BuildConfig.getVersion());
-    labelVersion.setHorizontalAlignment(SwingConstants.RIGHT);
-    labelVersion.setBounds(237, 236, 62, 14);
-    guiFrame.getContentPane().add(labelVersion);
 
     onBoot();
   }
@@ -118,23 +136,27 @@ public class DatdecGUI
     }
   }
 
-  public void onBoot ()
+  private void onBoot ()
   {
     eventHandler.updateConfigList();
   }
 
   protected void setState (String state)
   {
-    labelState.setText("State: " + state);
+    labelState.setText(state);
   }
 
   private final DatdecEventHandler eventHandler;
+
   private JFrame guiFrame;
-  protected Choice configList;
   protected JLabel labelState;
-  protected JLabel configCountLabel;
+  protected JLabel labelSelectedConfigName;
+  protected JButton selectConfigButton;
   protected JButton exportButton;
   protected JButton exportAllButton;
   protected JButton importButton;
   protected JButton importAllButton;
+
+  protected JFileChooser fileChooser;
+  protected File selectedFile = null;
 }

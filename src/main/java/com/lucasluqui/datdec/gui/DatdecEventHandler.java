@@ -5,7 +5,7 @@ import com.lucasluqui.datdec.export.Export;
 import com.lucasluqui.datdec.util.FileUtil;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
+import java.io.File;
 import java.util.List;
 
 public class DatdecEventHandler
@@ -17,35 +17,31 @@ public class DatdecEventHandler
 
   public void updateConfigList ()
   {
-    if (gui.configList.getItemCount() > 0) gui.configList.removeAll();
-
-    List<String> _list = FileUtil.fileNamesInDirectory("rsrc/config/");
-    gui.configCountLabel.setText("(" + _list.size() + " found)");
-    for (int i = 0; i < _list.size(); i++) gui.configList.add(_list.get(i));
-    if (_list.size() > 0) {
-      gui.exportButton.setEnabled(true);
-      gui.exportAllButton.setEnabled(true);
-      gui.importAllButton.setEnabled(true);
+    List<String> fileNames = FileUtil.fileNamesInDirectory("rsrc/config/");
+    for (String fileName : fileNames) {
+      if (fileName.endsWith(".dat")) {
+        gui.exportAllButton.setEnabled(true);
+      } else if (fileName.endsWith(".xml")) {
+        gui.importAllButton.setEnabled(true);
+      }
     }
   }
 
-  public void configChoiceChanged (ItemEvent event)
+  public void selectedConfigChanged (String file)
   {
-    if (event.getItem().toString().endsWith(".dat")) {
-      gui.importButton.setEnabled(false);
-      gui.exportButton.setEnabled(true);
-    } else {
-      gui.importButton.setEnabled(true);
-      gui.exportButton.setEnabled(false);
-    }
+    gui.importButton.setEnabled(!file.endsWith(".dat"));
+    gui.exportButton.setEnabled(file.endsWith(".dat"));
+    gui.labelSelectedConfigName.setText("Selected: " + file + ".");
   }
 
   public void exportSingle (ActionEvent action)
   {
-    String file = gui.configList.getItem(0);
-    Export.exportSingle(file);
-    gui.setState(file + " was exported.");
-    updateConfigList();
+    File file = gui.selectedFile;
+    if (file != null) {
+      Export.exportSingle(file);
+      gui.setState(file.getName() + " was exported.");
+      updateConfigList();
+    }
   }
 
   public void exportAll (ActionEvent action)
@@ -57,10 +53,12 @@ public class DatdecEventHandler
 
   public void importSingle (ActionEvent action)
   {
-    String file = gui.configList.getItem(0);
-    Import.importSingle(file);
-    gui.setState(file + " was imported.");
-    updateConfigList();
+    File file = gui.selectedFile;
+    if (file != null) {
+      Import.importSingle(file);
+      gui.setState(file.getName() + " was imported.");
+      updateConfigList();
+    }
   }
 
   public void importAll (ActionEvent action)

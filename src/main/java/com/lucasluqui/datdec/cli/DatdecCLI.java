@@ -6,6 +6,8 @@ import com.lucasluqui.datdec.export.Export;
 import com.lucasluqui.datdec.DatdecSettings;
 import org.apache.commons.cli.*;
 
+import java.io.File;
+
 import static com.lucasluqui.datdec.gui.DatdecGUI.startGUI;
 
 public class DatdecCLI
@@ -64,7 +66,7 @@ public class DatdecCLI
             System.out.printf("Warning: %s cannot be exported, is not .dat.\n", config);
             continue;
           }
-          Export.exportSingle(config);
+          Export.exportSingle(new File(config));
           nConfigs++;
         }
       } else {
@@ -90,7 +92,7 @@ public class DatdecCLI
             System.out.printf("Warning: %s cannot be imported, is not .xml.\n", config);
             continue;
           }
-          Import.importSingle(config);
+          Import.importSingle(new File(config));
           nConfigs++;
         }
       } else {
