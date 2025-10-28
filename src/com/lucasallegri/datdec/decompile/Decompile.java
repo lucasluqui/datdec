@@ -7,56 +7,33 @@ import java.io.IOException;
 import java.util.List;
 
 import com.lucasallegri.datdec.gui.DatdecContext;
-import com.lucasallegri.datdec.ooo.OOOExporter;
 import com.lucasallegri.datdec.util.FileUtil;
 import com.lucasallegri.datdec.util.PathUtil;
 
+import com.threerings.export.tools.BinaryToXMLConverter;
+
 public class Decompile {
-	
+
 	public static void decompile() {
-		
-		File source = new File(PathUtil.getPathToConfig(DatdecContext.selectedConfig));
-		FileInputStream in = null;
+    convert(DatdecContext.selectedConfig);
+	}
+
+	public static int decompileAll() {
+		List<String> list = FileUtil.fileNamesInDirectory("rsrc/config/");
+    for (String file : list) {
+			if (file.endsWith(".dat")) convert(file);
+		}
+		return list.size();
+	}
+
+  private static void convert(String file) {
+		File source = new File(PathUtil.getPathToConfig(file));
 		String path = source.getAbsolutePath();
-		
 		try {
-			
-			in = new FileInputStream(source);
 			String dest = path.replaceFirst("\\.dat$", ".xml");
-			FileOutputStream out = new FileOutputStream(dest);
-			OOOExporter.export(in, out);
-			
+      BinaryToXMLConverter.convert(path, dest);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public static int decompileAll() {
-		
-		List<String> _list = FileUtil.fileNamesInDirectory("rsrc/config/");
-		
-		for(int i = 0; i < _list.size(); i++) {
-			
-			if(_list.get(i).endsWith(".xml")) continue;
-			
-			File source = new File(PathUtil.getPathToConfig(_list.get(i)));
-			FileInputStream in = null;
-			String path = source.getAbsolutePath();
-			
-			try {
-				
-				in = new FileInputStream(source);
-				String dest = path.replaceFirst("\\.dat$", ".xml");
-				FileOutputStream out = new FileOutputStream(dest);
-				OOOExporter.export(in, out);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return _list.size();
-		
-	}
-
+  }
 }
