@@ -1,7 +1,2 @@
 # datdec
-<p align="left">
-    <a href="https://GitHub.com/lucas-allegri/datdec/releases/"><img alt="Total downloads" src="https://img.shields.io/github/downloads/lucas-allegri/datdec/total.svg"></a>
-</p>
-Decompile and compile .dat/.xml files from a certain game.
-
-![GUI](https://i.imgur.com/Rhbed6E.png "Datdec GUI")
+Simple tool that acts as a wrapper for [clyde](https://github.com/threerings/clyde)'s export tools, allowing interaction with such through a GUI.
