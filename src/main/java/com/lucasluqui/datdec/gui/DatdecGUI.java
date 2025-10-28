@@ -5,8 +5,6 @@ import com.lucasluqui.datdec.DatdecSettings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class DatdecGUI
 {
@@ -30,7 +28,6 @@ public class DatdecGUI
    */
   public DatdecGUI ()
   {
-    setupFonts();
     setupLookAndFeel();
     this.eventHandler = new DatdecEventHandler(this);
     initialize();
@@ -52,7 +49,6 @@ public class DatdecGUI
     guiFrame.getContentPane().setLayout(null);
 
     JLabel lblSelectConfigFile = new JLabel("Select config file");
-    lblSelectConfigFile.setFont(fontMed);
     lblSelectConfigFile.setHorizontalAlignment(SwingConstants.CENTER);
     lblSelectConfigFile.setBounds(10, 13, 280, 14);
     guiFrame.getContentPane().add(lblSelectConfigFile);
@@ -63,74 +59,49 @@ public class DatdecGUI
     guiFrame.getContentPane().add(configList);
 
     configCountLabel = new JLabel("(...)");
-    configCountLabel.setFont(fontReg);
     configCountLabel.setBounds(212, 36, 74, 14);
     guiFrame.getContentPane().add(configCountLabel);
 
     exportButton = new JButton("Export");
     exportButton.setEnabled(false);
-    exportButton.setFont(fontMed);
     exportButton.addActionListener(action -> eventHandler.exportSingle(action));
     exportButton.setBounds(40, 90, 110, 23);
     guiFrame.getContentPane().add(exportButton);
 
     exportAllButton = new JButton("Export All");
     exportAllButton.setEnabled(false);
-    exportAllButton.setFont(fontMed);
     exportAllButton.addActionListener(action -> eventHandler.exportAll(action));
     exportAllButton.setBounds(160, 90, 110, 23);
     guiFrame.getContentPane().add(exportAllButton);
 
     importButton = new JButton("Import");
     importButton.setEnabled(false);
-    importButton.setFont(fontMed);
     importButton.addActionListener(action -> eventHandler.importSingle(action));
     importButton.setBounds(40, 124, 110, 23);
     guiFrame.getContentPane().add(importButton);
 
     importAllButton = new JButton("Import All");
     importAllButton.setEnabled(false);
-    importAllButton.setFont(fontMed);
     importAllButton.setBounds(160, 124, 110, 23);
     importAllButton.addActionListener(action -> eventHandler.importAll(action));
     guiFrame.getContentPane().add(importAllButton);
 
     JCheckBox checkboxMakeBackups = new JCheckBox("Make backups when exporting");
     checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
-    checkboxMakeBackups.setFont(fontReg);
     checkboxMakeBackups.addActionListener(action -> DatdecSettings.doBackups = checkboxMakeBackups.isSelected());
     checkboxMakeBackups.setBounds(40, 194, 230, 23);
     guiFrame.getContentPane().add(checkboxMakeBackups);
 
     labelState = new JLabel("");
-    labelState.setFont(fontReg);
     labelState.setBounds(10, 236, 217, 14);
     guiFrame.getContentPane().add(labelState);
 
     JLabel labelVersion = new JLabel("v" + BuildConfig.getVersion());
-    labelVersion.setFont(fontReg);
     labelVersion.setHorizontalAlignment(SwingConstants.RIGHT);
     labelVersion.setBounds(237, 236, 62, 14);
     guiFrame.getContentPane().add(labelVersion);
 
     onBoot();
-  }
-
-  private void setupFonts ()
-  {
-    InputStream fontRegIs = DatdecGUI.class.getResourceAsStream("/fonts/GoogleSans-Regular.ttf");
-    InputStream fontMedIs = DatdecGUI.class.getResourceAsStream("/fonts/GoogleSans-Medium.ttf");
-    try {
-      fontReg = Font.createFont(Font.TRUETYPE_FONT, fontRegIs);
-      fontMed = Font.createFont(Font.TRUETYPE_FONT, fontMedIs);
-      fontReg = fontReg.deriveFont(11.0f);
-      fontReg = fontReg.deriveFont(Font.ITALIC);
-      fontMed = fontMed.deriveFont(11.0f);
-    } catch (FontFormatException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   private void setupLookAndFeel ()
@@ -166,6 +137,4 @@ public class DatdecGUI
   protected JButton exportAllButton;
   protected JButton importButton;
   protected JButton importAllButton;
-  private Font fontReg;
-  private Font fontMed;
 }
