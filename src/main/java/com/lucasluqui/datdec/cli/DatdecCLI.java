@@ -1,6 +1,6 @@
 package com.lucasluqui.datdec.cli;
 
-import com.lucasluqui.datdec.DatdecGlobals;
+import com.lucasluqui.datdec.BuildConfig;
 import com.lucasluqui.datdec.export.Import;
 import com.lucasluqui.datdec.export.Export;
 import com.lucasluqui.datdec.DatdecSettings;
@@ -26,7 +26,7 @@ public class DatdecCLI
         .anyMatch(o -> cmd.hasOption(o.getOpt()));
 
       if (cliUsed) {
-        System.out.printf("datdec %s\n", DatdecGlobals.version);
+        System.out.printf("datdec %s\n", BuildConfig.getVersion());
         processOptions(cmd, options);
       } else {
         startGUI();

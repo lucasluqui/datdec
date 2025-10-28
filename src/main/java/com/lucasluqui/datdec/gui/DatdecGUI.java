@@ -1,6 +1,6 @@
 package com.lucasluqui.datdec.gui;
 
-import com.lucasluqui.datdec.DatdecGlobals;
+import com.lucasluqui.datdec.BuildConfig;
 import com.lucasluqui.datdec.DatdecSettings;
 
 import javax.swing.*;
@@ -107,7 +107,7 @@ public class DatdecGUI
     labelState.setBounds(10, 236, 217, 14);
     guiFrame.getContentPane().add(labelState);
 
-    JLabel labelVersion = new JLabel("v" + DatdecGlobals.version);
+    JLabel labelVersion = new JLabel("v" + BuildConfig.getVersion());
     labelVersion.setFont(fontReg);
     labelVersion.setHorizontalAlignment(SwingConstants.RIGHT);
     labelVersion.setBounds(237, 236, 62, 14);

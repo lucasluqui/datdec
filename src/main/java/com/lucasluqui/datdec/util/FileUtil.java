@@ -10,10 +10,8 @@ import java.util.List;
 
 public class FileUtil
 {
-
   public static List<String> fileNamesInDirectory (String dir)
   {
-
     File folder = new File(dir);
     File[] fileList = folder.listFiles();
     List<String> fileNames = new ArrayList<String>();
@@ -35,6 +33,4 @@ public class FileUtil
       e.printStackTrace();
     }
   }
-
-
 }
