@@ -1,42 +1,26 @@
 package com.lucasluqui.datdec.gui;
 
-import com.lucasluqui.datdec.DatdecConstants;
+import com.lucasluqui.datdec.DatdecGlobals;
+import com.lucasluqui.datdec.DatdecSettings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class DatdecGUI
 {
-  private JFrame frmDatdecGUI;
-  public static Choice configList;
-  public static JLabel stateLabel;
-  public static JLabel configCountLabel;
-  public static JButton decompileButton;
-  public static JButton decompileAllButton;
-  public static JButton compileButton;
-  public static JButton compileAllButton;
-
   /**
    * Launch the application GUI.
    */
   public static void startGUI ()
   {
-    EventQueue.invokeLater(new Runnable()
-    {
-      public void run ()
-      {
-        try {
-          DatdecGUI window = new DatdecGUI();
-          window.frmDatdecGUI.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+    EventQueue.invokeLater(() -> {
+      try {
+        DatdecGUI window = new DatdecGUI();
+        window.guiFrame.setVisible(true);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     });
   }
@@ -46,6 +30,9 @@ public class DatdecGUI
    */
   public DatdecGUI ()
   {
+    setupFonts();
+    setupLookAndFeel();
+    this.eventHandler = new DatdecEventHandler(this);
     initialize();
   }
 
@@ -55,10 +42,84 @@ public class DatdecGUI
   private void initialize ()
   {
 
+    guiFrame = new JFrame();
+    guiFrame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
+    guiFrame.setResizable(false);
+    guiFrame.setLocationRelativeTo(null);
+    guiFrame.setTitle("Datdec");
+    guiFrame.setBounds(100, 100, 325, 300);
+    guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    guiFrame.getContentPane().setLayout(null);
+
+    JLabel lblSelectConfigFile = new JLabel("Select config file");
+    lblSelectConfigFile.setFont(fontMed);
+    lblSelectConfigFile.setHorizontalAlignment(SwingConstants.CENTER);
+    lblSelectConfigFile.setBounds(10, 13, 280, 14);
+    guiFrame.getContentPane().add(lblSelectConfigFile);
+
+    configList = new Choice();
+    configList.setBounds(96, 33, 110, 20);
+    configList.addItemListener(event -> eventHandler.configChoiceChanged(event));
+    guiFrame.getContentPane().add(configList);
+
+    configCountLabel = new JLabel("(...)");
+    configCountLabel.setFont(fontReg);
+    configCountLabel.setBounds(212, 36, 74, 14);
+    guiFrame.getContentPane().add(configCountLabel);
+
+    exportButton = new JButton("Export");
+    exportButton.setEnabled(false);
+    exportButton.setFont(fontMed);
+    exportButton.addActionListener(action -> eventHandler.exportSingle(action));
+    exportButton.setBounds(40, 90, 110, 23);
+    guiFrame.getContentPane().add(exportButton);
+
+    exportAllButton = new JButton("Export All");
+    exportAllButton.setEnabled(false);
+    exportAllButton.setFont(fontMed);
+    exportAllButton.addActionListener(action -> eventHandler.exportAll(action));
+    exportAllButton.setBounds(160, 90, 110, 23);
+    guiFrame.getContentPane().add(exportAllButton);
+
+    importButton = new JButton("Import");
+    importButton.setEnabled(false);
+    importButton.setFont(fontMed);
+    importButton.addActionListener(action -> eventHandler.importSingle(action));
+    importButton.setBounds(40, 124, 110, 23);
+    guiFrame.getContentPane().add(importButton);
+
+    importAllButton = new JButton("Import All");
+    importAllButton.setEnabled(false);
+    importAllButton.setFont(fontMed);
+    importAllButton.setBounds(160, 124, 110, 23);
+    importAllButton.addActionListener(action -> eventHandler.importAll(action));
+    guiFrame.getContentPane().add(importAllButton);
+
+    JCheckBox checkboxMakeBackups = new JCheckBox("Make backups when exporting");
+    checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
+    checkboxMakeBackups.setFont(fontReg);
+    checkboxMakeBackups.addActionListener(action -> DatdecSettings.doBackups = checkboxMakeBackups.isSelected());
+    checkboxMakeBackups.setBounds(40, 194, 230, 23);
+    guiFrame.getContentPane().add(checkboxMakeBackups);
+
+    labelState = new JLabel("");
+    labelState.setFont(fontReg);
+    labelState.setBounds(10, 236, 217, 14);
+    guiFrame.getContentPane().add(labelState);
+
+    JLabel labelVersion = new JLabel("v" + DatdecGlobals.version);
+    labelVersion.setFont(fontReg);
+    labelVersion.setHorizontalAlignment(SwingConstants.RIGHT);
+    labelVersion.setBounds(237, 236, 62, 14);
+    guiFrame.getContentPane().add(labelVersion);
+
+    onBoot();
+  }
+
+  private void setupFonts ()
+  {
     InputStream fontRegIs = DatdecGUI.class.getResourceAsStream("/fonts/GoogleSans-Regular.ttf");
     InputStream fontMedIs = DatdecGUI.class.getResourceAsStream("/fonts/GoogleSans-Medium.ttf");
-    Font fontReg = null;
-    Font fontMed = null;
     try {
       fontReg = Font.createFont(Font.TRUETYPE_FONT, fontRegIs);
       fontMed = Font.createFont(Font.TRUETYPE_FONT, fontMedIs);
@@ -70,134 +131,41 @@ public class DatdecGUI
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    frmDatdecGUI = new JFrame();
-    frmDatdecGUI.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
-    frmDatdecGUI.setResizable(false);
-    frmDatdecGUI.setLocationRelativeTo(null);
-    frmDatdecGUI.setTitle("Datdec GUI");
-    frmDatdecGUI.setBounds(100, 100, 325, 300);
-    frmDatdecGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frmDatdecGUI.getContentPane().setLayout(null);
-
-    JLabel lblSelectConfigFile = new JLabel("Select config file");
-    lblSelectConfigFile.setFont(fontMed);
-    lblSelectConfigFile.setHorizontalAlignment(SwingConstants.CENTER);
-    lblSelectConfigFile.setBounds(10, 13, 280, 14);
-    frmDatdecGUI.getContentPane().add(lblSelectConfigFile);
-
-    configList = new Choice();
-    configList.setBounds(96, 33, 110, 20);
-    configList.addItemListener(new ItemListener()
-    {
-      @Override
-      public void itemStateChanged (ItemEvent _event)
-      {
-        EventController.configChoiceChanged(_event);
-      }
-    });
-    frmDatdecGUI.getContentPane().add(configList);
-
-    configCountLabel = new JLabel("(...)");
-    configCountLabel.setFont(fontReg);
-    configCountLabel.setBounds(212, 36, 74, 14);
-    frmDatdecGUI.getContentPane().add(configCountLabel);
-
-    decompileButton = new JButton("Decompile");
-    decompileButton.setEnabled(false);
-    decompileButton.setFont(fontMed);
-    decompileButton.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        EventController.decompile(_action);
-      }
-    });
-    decompileButton.setBounds(40, 90, 110, 23);
-    frmDatdecGUI.getContentPane().add(decompileButton);
-
-    decompileAllButton = new JButton("Decompile All");
-    decompileAllButton.setEnabled(false);
-    decompileAllButton.setFont(fontMed);
-    decompileAllButton.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        EventController.decompileAll(_action);
-      }
-    });
-    decompileAllButton.setBounds(160, 90, 110, 23);
-    frmDatdecGUI.getContentPane().add(decompileAllButton);
-
-    compileButton = new JButton("Compile");
-    compileButton.setEnabled(false);
-    compileButton.setFont(fontMed);
-    compileButton.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        EventController.compile(_action);
-      }
-    });
-    compileButton.setBounds(40, 124, 110, 23);
-    frmDatdecGUI.getContentPane().add(compileButton);
-
-    compileAllButton = new JButton("Compile All");
-    compileAllButton.setEnabled(false);
-    compileAllButton.setFont(fontMed);
-    compileAllButton.setBounds(160, 124, 110, 23);
-    compileAllButton.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        EventController.compileAll(_action);
-      }
-    });
-    frmDatdecGUI.getContentPane().add(compileAllButton);
-
-    JCheckBox checkboxMakeBackups = new JCheckBox("Make backups when compiling");
-    checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
-    checkboxMakeBackups.setFont(fontReg);
-    checkboxMakeBackups.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        DatdecContext.doBackups = checkboxMakeBackups.isSelected();
-      }
-    });
-    checkboxMakeBackups.setBounds(40, 194, 230, 23);
-    frmDatdecGUI.getContentPane().add(checkboxMakeBackups);
-
-    stateLabel = new JLabel("State: Awaiting interaction.");
-    stateLabel.setFont(fontReg);
-    stateLabel.setBounds(10, 236, 217, 14);
-    frmDatdecGUI.getContentPane().add(stateLabel);
-
-    JLabel lblVersion = new JLabel("v." + DatdecConstants.version);
-    lblVersion.setFont(fontReg);
-    lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
-    lblVersion.setBounds(237, 236, 62, 14);
-    frmDatdecGUI.getContentPane().add(lblVersion);
-
-    JCheckBox checkboxUseOldMappings = new JCheckBox("Use old class mappings (older versions)");
-    checkboxUseOldMappings.setHorizontalAlignment(SwingConstants.CENTER);
-    checkboxUseOldMappings.setFont(fontReg);
-    checkboxUseOldMappings.addActionListener(new ActionListener()
-    {
-      public void actionPerformed (ActionEvent _action)
-      {
-        DatdecContext.useOldClassMappings = checkboxUseOldMappings.isSelected();
-      }
-    });
-    checkboxUseOldMappings.setBounds(40, 168, 230, 23);
-    frmDatdecGUI.getContentPane().add(checkboxUseOldMappings);
-
-    Boot.onBoot();
-
   }
 
-  public static void pushState (String state)
+  private void setupLookAndFeel ()
   {
-    stateLabel.setText("State: " + state);
+    for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+      if ("Windows".equals(info.getName())) {
+        try {
+          UIManager.setLookAndFeel(info.getClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                 | UnsupportedLookAndFeelException e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
+
+  public void onBoot ()
+  {
+    eventHandler.updateConfigList();
+  }
+
+  protected void setState (String state)
+  {
+    labelState.setText("State: " + state);
+  }
+
+  private final DatdecEventHandler eventHandler;
+  private JFrame guiFrame;
+  protected Choice configList;
+  protected JLabel labelState;
+  protected JLabel configCountLabel;
+  protected JButton exportButton;
+  protected JButton exportAllButton;
+  protected JButton importButton;
+  protected JButton importAllButton;
+  private Font fontReg;
+  private Font fontMed;
 }

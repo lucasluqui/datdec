@@ -1,6 +1,5 @@
-package com.lucasluqui.datdec.decompile;
+package com.lucasluqui.datdec.export;
 
-import com.lucasluqui.datdec.gui.DatdecContext;
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
 import com.threerings.export.tools.BinaryToXMLConverter;
@@ -9,14 +8,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Decompile
+public class Export
 {
-  public static void decompile ()
+  public static void exportSingle (String file)
   {
-    convert(DatdecContext.selectedConfig);
+    convert(file);
   }
 
-  public static int decompileAll ()
+  public static int exportAll ()
   {
     List<String> list = FileUtil.fileNamesInDirectory("rsrc/config/");
     for (String file : list) {

@@ -1,6 +1,6 @@
-package com.lucasluqui.datdec.compile;
+package com.lucasluqui.datdec.export;
 
-import com.lucasluqui.datdec.gui.DatdecContext;
+import com.lucasluqui.datdec.DatdecSettings;
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
 import com.threerings.export.tools.XMLToBinaryConverter;
@@ -9,16 +9,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Compile
+public class Import
 {
   private static final boolean COMPRESS = true;
 
-  public static void compile ()
+  public static void importSingle (String file)
   {
-    convert(DatdecContext.selectedConfig);
+    convert(file);
   }
 
-  public static int compileAll ()
+  public static int importAll ()
   {
     List<String> list = FileUtil.fileNamesInDirectory("rsrc/config/");
     for (String file : list) {
@@ -33,7 +33,7 @@ public class Compile
     String path = source.getAbsolutePath();
     try {
       String dest = path.replaceFirst("\\.xml$", ".dat");
-      if (DatdecContext.doBackups) FileUtil.backupFile(dest);
+      if (DatdecSettings.doBackups) FileUtil.backupFile(dest);
       XMLToBinaryConverter.convert(path, dest, COMPRESS);
       source.delete();
     } catch (IOException e) {

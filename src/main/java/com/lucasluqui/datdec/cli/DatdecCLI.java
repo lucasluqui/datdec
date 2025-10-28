@@ -1,9 +1,9 @@
 package com.lucasluqui.datdec.cli;
 
-import com.lucasluqui.datdec.DatdecConstants;
-import com.lucasluqui.datdec.compile.Compile;
-import com.lucasluqui.datdec.decompile.Decompile;
-import com.lucasluqui.datdec.gui.DatdecContext;
+import com.lucasluqui.datdec.DatdecGlobals;
+import com.lucasluqui.datdec.export.Import;
+import com.lucasluqui.datdec.export.Export;
+import com.lucasluqui.datdec.DatdecSettings;
 import org.apache.commons.cli.*;
 
 import static com.lucasluqui.datdec.gui.DatdecGUI.startGUI;
@@ -26,7 +26,7 @@ public class DatdecCLI
         .anyMatch(o -> cmd.hasOption(o.getOpt()));
 
       if (cliUsed) {
-        System.out.printf("datdec %s\n", DatdecConstants.version);
+        System.out.printf("datdec %s\n", DatdecGlobals.version);
         processOptions(cmd, options);
       } else {
         startGUI();
@@ -52,13 +52,8 @@ public class DatdecCLI
       System.exit(0);
     }
 
-    // Use old class mappings
-    if (cmd.hasOption("m")) {
-      DatdecContext.useOldClassMappings = true;
-    }
-
-    // Decompile files specified by the argument
-    // if no files given, decompile all under rsrc/config.
+    // Export files specified by the argument
+    // if no files given, export all under rsrc/config.
     if (cmd.hasOption("d")) {
       String[] configs = cmd.getOptionValues("d");
       int nConfigs;
@@ -66,26 +61,25 @@ public class DatdecCLI
         nConfigs = 0;
         for (String config : configs) {
           if (!config.contains(".dat")) {
-            System.out.printf("Warning: %s cannot be decompiled, is not dat.\n", config);
+            System.out.printf("Warning: %s cannot be exported, is not dat.\n", config);
             continue;
           }
-          DatdecContext.selectedConfig = config;
-          Decompile.decompile();
+          Export.exportSingle(config);
           nConfigs++;
         }
       } else {
-        nConfigs = Decompile.decompileAll();
+        nConfigs = Export.exportAll();
       }
-      System.out.printf("%s configs were decompiled.", nConfigs);
+      System.out.printf("%s configs were exported.", nConfigs);
     }
 
-    // Create file backup when compiling option
+    // Create file backup
     if (cmd.hasOption("b")) {
-      DatdecContext.doBackups = true;
+      DatdecSettings.doBackups = true;
     }
 
-    // Compile files specified by the argument
-    // if no files given, compile all under rsrc/config.
+    // Import files specified by the argument
+    // if no files given, import all under rsrc/config.
     if (cmd.hasOption("c")) {
       String[] configs = cmd.getOptionValues("c");
       int nConfigs;
@@ -93,17 +87,16 @@ public class DatdecCLI
         nConfigs = 0;
         for (String config : configs) {
           if (!config.contains(".xml")) {
-            System.out.printf("Warning: %s cannot be compiled, is not xml.\n", config);
+            System.out.printf("Warning: %s cannot be imported, is not xml.\n", config);
             continue;
           }
-          DatdecContext.selectedConfig = config;
-          Compile.compile();
+          Import.importSingle(config);
           nConfigs++;
         }
       } else {
-        nConfigs = Compile.compileAll();
+        nConfigs = Import.importAll();
       }
-      System.out.printf("%s configs were decompiled.", nConfigs);
+      System.out.printf("%s configs were imported.", nConfigs);
     }
   }
 
@@ -125,9 +118,9 @@ public class DatdecCLI
     options.addOption(help);
 
     // List of files to decompile
-    Option decompile = Option.builder("d")
-      .longOpt("decompile")
-      .desc("List of .dat files to decompile. Not full paths. If no files are given, will decompile everything under rsrc/config.")
+    Option decompile = Option.builder("e")
+      .longOpt("export")
+      .desc("List of .dat files to export. Not full paths. If no files are given, will export everything under rsrc/config.")
       .hasArgs()
       .optionalArg(true)
       .required(false)
@@ -136,9 +129,9 @@ public class DatdecCLI
     options.addOption(decompile);
 
     // List of files to compile
-    Option compile = Option.builder("c")
-      .longOpt("compile")
-      .desc("List of .xml files to compile. Not full paths. If no files are given, will compile everything under rsrc/config.")
+    Option compile = Option.builder("i")
+      .longOpt("import")
+      .desc("List of .xml files to import. Not full paths. If no files are given, will import everything under rsrc/config.")
       .hasArgs()
       .optionalArg(true)
       .required(false)
@@ -154,15 +147,6 @@ public class DatdecCLI
       .required(false)
       .get();
     options.addOption(backups);
-
-    // Switch to use old class mappings
-    Option mappings = Option.builder("m")
-      .longOpt("old-mappings")
-      .desc("Use old class mappings")
-      .hasArg(false)
-      .required(false)
-      .get();
-    options.addOption(mappings);
 
     return options;
   }
