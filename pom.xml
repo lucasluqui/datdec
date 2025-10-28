@@ -7,16 +7,16 @@
     <version>7</version>
   </parent>
 
-  <groupId>com.lucasallegri</groupId>
+  <groupId>com.lucasluqui</groupId>
   <artifactId>datdec</artifactId>
   <packaging>jar</packaging>
   <version>2.1-SNAPSHOT</version>
 
   <name>datdec</name>
-  <description>A collection of Java utilities.</description>
-  <url>http://github.com/samskivert/samskivert</url>
+  <description>Tool to export/import .dat/.xml files used in the game Spiral Knights.</description>
+  <url>http://github.com/lucasluqui/datdec</url>
   <issueManagement>
-    <url>http://github.com/samskivert/samskivert/issues</url>
+    <url>http://github.com/lucasluqui/datdec/issues</url>
   </issueManagement>
 
   <licenses>
@@ -40,7 +40,7 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
 
     <plugins>
     <plugin>
@@ -50,7 +50,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>com.lucasallegri.datdec.cli.DatdecCLI</mainClass> <!-- your main class here -->
+            <mainClass>com.lucasluqui.datdec.cli.DatdecCLI</mainClass> <!-- your main class here -->
           </manifest>
         </archive>
         <descriptorRefs>
