@@ -3,6 +3,7 @@
 
 # Binaries directory.
 bin/
+target/
 
 # Log file
 *.log
