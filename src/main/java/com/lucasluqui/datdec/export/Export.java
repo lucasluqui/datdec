@@ -2,10 +2,10 @@ package com.lucasluqui.datdec.export;
 
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
-import com.threerings.export.tools.BinaryToXMLConverter;
+import com.threerings.export.BinaryImporter;
+import com.threerings.export.XMLExporter;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class Export
@@ -29,7 +29,18 @@ public class Export
     String path = file.getAbsolutePath();
     try {
       String dest = path.replaceFirst("\\.dat$", ".xml");
-      BinaryToXMLConverter.convert(path, dest);
+      BinaryImporter in = new BinaryImporter(new FileInputStream(file));
+      XMLExporter out = new XMLExporter(new FileOutputStream(dest));
+      try {
+        while (true) {
+          out.writeObject(in.readObject());
+        }
+      } catch (EOFException e) {
+        // no problem
+      } finally {
+        in.close();
+        out.close();
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -38,11 +38,13 @@
       <artifactId>samskivert</artifactId>
       <version>1.9</version>
     </dependency>
+    <!--
     <dependency>
       <groupId>com.threerings</groupId>
       <artifactId>clyde</artifactId>
       <version>1.0.120</version>
     </dependency>
+    -->
   </dependencies>
 
   <build>

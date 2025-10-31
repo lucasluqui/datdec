@@ -3,10 +3,10 @@ package com.lucasluqui.datdec.export;
 import com.lucasluqui.datdec.DatdecSettings;
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
-import com.threerings.export.tools.XMLToBinaryConverter;
+import com.threerings.export.BinaryExporter;
+import com.threerings.export.XMLImporter;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class Import
@@ -33,7 +33,18 @@ public class Import
     try {
       String dest = path.replaceFirst("\\.xml$", ".dat");
       if (DatdecSettings.doBackups) FileUtil.backupFile(dest);
-      XMLToBinaryConverter.convert(path, dest, COMPRESS);
+      XMLImporter in = new XMLImporter(new FileInputStream(file));
+      BinaryExporter out = new BinaryExporter(new FileOutputStream(dest), COMPRESS);
+      try {
+        while (true) {
+          out.writeObject(in.readObject());
+        }
+      } catch (EOFException e) {
+        // no problem
+      } finally {
+        in.close();
+        out.close();
+      }
       file.delete();
     } catch (IOException e) {
       e.printStackTrace();
