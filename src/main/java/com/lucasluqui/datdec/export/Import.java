@@ -4,6 +4,8 @@ import com.lucasluqui.datdec.DatdecSettings;
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
 import com.threerings.export.BinaryExporter;
+import com.threerings.export.BinaryImporter;
+import com.threerings.export.XMLExporter;
 import com.threerings.export.XMLImporter;
 
 import java.io.*;
@@ -30,24 +32,30 @@ public class Import
   private static void convert (File file)
   {
     String path = file.getAbsolutePath();
+    String dest = path.replaceFirst("\\.xml$", ".dat");
+    if (DatdecSettings.doBackups) FileUtil.backupFile(dest);
+
+    XMLImporter in = null;
+    BinaryExporter out = null;
     try {
-      String dest = path.replaceFirst("\\.xml$", ".dat");
-      if (DatdecSettings.doBackups) FileUtil.backupFile(dest);
-      XMLImporter in = new XMLImporter(new FileInputStream(file));
-      BinaryExporter out = new BinaryExporter(new FileOutputStream(dest), COMPRESS);
+      in = new XMLImporter(new FileInputStream(file));
+      out = new BinaryExporter(new FileOutputStream(dest));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+
+    Object object = null;
+
+    while (true) {
       try {
-        while (true) {
-          out.writeObject(in.readObject());
-        }
-      } catch (EOFException e) {
-        // no problem
-      } finally {
+        object = in.readObject();
+      } catch (Exception e) {
         in.close();
         out.close();
+        return;
       }
-      file.delete();
-    } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("read=" + object.getClass());
+      out.writeObject(object);
     }
   }
 }

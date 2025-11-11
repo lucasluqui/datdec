@@ -27,22 +27,29 @@ public class Export
   private static void convert (File file)
   {
     String path = file.getAbsolutePath();
+    String dest = path.replaceFirst("\\.dat$", ".xml");
+
+    BinaryImporter in = null;
+    XMLExporter out = null;
     try {
-      String dest = path.replaceFirst("\\.dat$", ".xml");
-      BinaryImporter in = new BinaryImporter(new FileInputStream(file));
-      XMLExporter out = new XMLExporter(new FileOutputStream(dest));
+      in = new BinaryImporter(new FileInputStream(file));
+      out = new XMLExporter(new FileOutputStream(dest));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+
+    Object object = null;
+
+    while (true) {
       try {
-        while (true) {
-          out.writeObject(in.readObject());
-        }
-      } catch (EOFException e) {
-        // no problem
-      } finally {
+        object = in.readObject();
+      } catch (Exception e) {
         in.close();
         out.close();
+        return;
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("read=" + object.getClass());
+      out.writeObject(object);
     }
   }
 }

@@ -38,3 +38,6 @@ lib/
 # IntelliJ Idea files
 .idea/*
 *.iml
+
+# projectx-pcode
+*projectx-pcode.jar

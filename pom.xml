@@ -33,18 +33,18 @@
       <artifactId>commons-cli</artifactId>
       <version>1.10.0</version>
     </dependency>
-    <dependency>
-      <groupId>com.samskivert</groupId>
-      <artifactId>samskivert</artifactId>
-      <version>1.9</version>
-    </dependency>
+
     <!--
-    <dependency>
-      <groupId>com.threerings</groupId>
-      <artifactId>clyde</artifactId>
-      <version>1.0.120</version>
-    </dependency>
+      For this local dependency, you must copy 'projectx-pcode.jar' from the game's 'code' directory into the
+      project's 'lib' directory, as it would be illegal for us to bundle proprietary software.
     -->
+    <dependency>
+      <groupId>pcode</groupId>
+      <artifactId>pcode</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/projectx-pcode.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
