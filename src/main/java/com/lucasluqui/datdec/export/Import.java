@@ -4,8 +4,6 @@ import com.lucasluqui.datdec.DatdecSettings;
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
 import com.threerings.export.BinaryExporter;
-import com.threerings.export.BinaryImporter;
-import com.threerings.export.XMLExporter;
 import com.threerings.export.XMLImporter;
 
 import java.io.*;
