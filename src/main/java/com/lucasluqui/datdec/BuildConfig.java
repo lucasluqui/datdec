@@ -14,6 +14,7 @@ public class BuildConfig
   public static String getVersion ()
   {
     //return _build.getValue("version", "0");
-    return "2.1";
+    // TODO: Fix this.
+    return "2.2-SNAPSHOT";
   }
 }
