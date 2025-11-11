@@ -56,8 +56,8 @@ public class DatdecCLI
 
     // Export files specified by the argument
     // if no files given, export all under rsrc/config.
-    if (cmd.hasOption("d")) {
-      String[] configs = cmd.getOptionValues("d");
+    if (cmd.hasOption("e")) {
+      String[] configs = cmd.getOptionValues("e");
       int nConfigs;
       if (configs != null && configs.length > 0) {
         nConfigs = 0;
@@ -82,8 +82,8 @@ public class DatdecCLI
 
     // Import files specified by the argument
     // if no files given, import all under rsrc/config.
-    if (cmd.hasOption("c")) {
-      String[] configs = cmd.getOptionValues("c");
+    if (cmd.hasOption("i")) {
+      String[] configs = cmd.getOptionValues("i");
       int nConfigs;
       if (configs.length > 0) {
         nConfigs = 0;
