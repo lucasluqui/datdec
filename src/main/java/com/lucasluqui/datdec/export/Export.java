@@ -24,6 +24,15 @@ public class Export
     return fileNames.size();
   }
 
+  public static int exportAllCrucible ()
+  {
+    List<String> fileNames = FileUtil.fileNamesInDirectory("crucible/rsrc/config/");
+    for (String fileName : fileNames) {
+      if (fileName.endsWith(".dat")) convert(new File(PathUtil.getPathToCrucibleConfig(fileName)));
+    }
+    return fileNames.size();
+  }
+
   private static void convert (File file)
   {
     String path = file.getAbsolutePath();

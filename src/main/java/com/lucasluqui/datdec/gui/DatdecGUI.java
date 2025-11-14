@@ -94,25 +94,31 @@ public class DatdecGUI
     guiFrame.getContentPane().add(importButton);
 
     JSeparator separator = new JSeparator();
-    separator.setBounds(25, 126, 255, 5);
+    separator.setBounds(15, 126, 275, 5);
     guiFrame.getContentPane().add(separator);
 
     exportAllButton = new JButton("Export All Configs");
     exportAllButton.setEnabled(false);
     exportAllButton.addActionListener(eventHandler::exportAll);
-    exportAllButton.setBounds(89, 140, 130, 25);
+    exportAllButton.setBounds(20, 140, 130, 25);
     guiFrame.getContentPane().add(exportAllButton);
+
+    exportAllCrucibleButton = new JButton("... Crucible Configs");
+    exportAllCrucibleButton.setEnabled(false);
+    exportAllCrucibleButton.addActionListener(eventHandler::exportAllCrucible);
+    exportAllCrucibleButton.setBounds(160, 140, 130, 25);
+    guiFrame.getContentPane().add(exportAllCrucibleButton);
 
     importAllButton = new JButton("Import All Configs");
     importAllButton.setEnabled(false);
-    importAllButton.setBounds(89, 175, 130, 25);
+    importAllButton.setBounds(20, 175, 130, 25);
     importAllButton.addActionListener(eventHandler::importAll);
     guiFrame.getContentPane().add(importAllButton);
 
     JCheckBox checkboxMakeBackups = new JCheckBox("Make back-ups when importing");
     checkboxMakeBackups.setHorizontalAlignment(SwingConstants.CENTER);
     checkboxMakeBackups.addActionListener(action -> DatdecSettings.doBackups = checkboxMakeBackups.isSelected());
-    checkboxMakeBackups.setBounds(40, 210, 230, 25);
+    checkboxMakeBackups.setBounds(40, 205, 230, 25);
     guiFrame.getContentPane().add(checkboxMakeBackups);
 
     labelState = new JLabel("");
@@ -154,6 +160,7 @@ public class DatdecGUI
   protected JButton selectConfigButton;
   protected JButton exportButton;
   protected JButton exportAllButton;
+  protected JButton exportAllCrucibleButton;
   protected JButton importButton;
   protected JButton importAllButton;
 

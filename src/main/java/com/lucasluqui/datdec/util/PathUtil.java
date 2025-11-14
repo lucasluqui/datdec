@@ -8,4 +8,9 @@ public class PathUtil
   {
     return System.getProperty("user.dir") + File.separator + "rsrc" + File.separator + "config" + File.separator + name;
   }
+
+  public static String getPathToCrucibleConfig (String name)
+  {
+    return System.getProperty("user.dir") + File.separator + "crucible" + File.separator + "rsrc" + File.separator + "config" + File.separator + name;
+  }
 }

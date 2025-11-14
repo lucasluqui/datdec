@@ -100,6 +100,11 @@ public class DatdecCLI
       }
       System.out.printf("%s configs were imported.", nConfigs);
     }
+
+    if (cmd.hasOption("ec")) {
+      int nConfigs = Export.exportAllCrucible();
+      System.out.printf("%s crucible configs were exported.", nConfigs);
+    }
   }
 
   /**
@@ -119,8 +124,8 @@ public class DatdecCLI
       .get();
     options.addOption(help);
 
-    // List of files to decompile
-    Option decompile = Option.builder("e")
+    // List of files to export
+    Option exporting = Option.builder("e")
       .longOpt("export")
       .desc("List of .dat files to export. Not full paths. If no files are given, will export everything under rsrc/config.")
       .hasArgs()
@@ -128,10 +133,10 @@ public class DatdecCLI
       .required(false)
       .argName("file names")
       .get();
-    options.addOption(decompile);
+    options.addOption(exporting);
 
-    // List of files to compile
-    Option compile = Option.builder("i")
+    // List of files to import
+    Option importing = Option.builder("i")
       .longOpt("import")
       .desc("List of .xml files to import. Not full paths. If no files are given, will import everything under rsrc/config.")
       .hasArgs()
@@ -139,7 +144,7 @@ public class DatdecCLI
       .required(false)
       .argName("file names")
       .get();
-    options.addOption(compile);
+    options.addOption(importing);
 
     // Switch to back-up existing .dat files when importing them from .xml
     Option backups = Option.builder("b")
@@ -149,6 +154,14 @@ public class DatdecCLI
       .required(false)
       .get();
     options.addOption(backups);
+
+    // Export crucible configs
+    Option exportingCrucible = Option.builder("ec")
+      .longOpt("exportCrucible")
+      .desc("Will export everything under crucible/rsrc/config.")
+      .required(false)
+      .get();
+    options.addOption(exportingCrucible);
 
     return options;
   }

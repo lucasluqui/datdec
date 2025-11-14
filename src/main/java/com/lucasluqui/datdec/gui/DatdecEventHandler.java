@@ -25,6 +25,13 @@ public class DatdecEventHandler
         gui.importAllButton.setEnabled(true);
       }
     }
+
+    List<String> fileNamesCrucible = FileUtil.fileNamesInDirectory("crucible/rsrc/config/");
+    for (String fileName : fileNames) {
+      if (fileName.endsWith(".dat")) {
+        gui.exportAllCrucibleButton.setEnabled(true);
+      }
+    }
   }
 
   public void selectedConfigChanged (String file)
@@ -48,6 +55,13 @@ public class DatdecEventHandler
   {
     int nFiles = Export.exportAll();
     gui.setState(String.format("%s configs were exported.", nFiles));
+    updateConfigList();
+  }
+
+  public void exportAllCrucible (ActionEvent action)
+  {
+    int nFiles = Export.exportAllCrucible();
+    gui.setState(String.format("%s crucible configs were exported.", nFiles));
     updateConfigList();
   }
 
