@@ -15,6 +15,6 @@ public class BuildConfig
   {
     //return _build.getValue("version", "0");
     // TODO: Fix this.
-    return "2.2";
+    return "2.3-SNAPSHOT";
   }
 }
