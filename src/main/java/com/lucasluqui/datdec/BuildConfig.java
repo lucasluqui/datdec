@@ -15,6 +15,6 @@ public class BuildConfig
   {
     // TODO: Fix this.
     //return _build.getValue("datdec.version", "0");
-    return "2.3-SNAPSHOT";
+    return "2.3";
   }
 }
