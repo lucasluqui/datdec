@@ -13,8 +13,8 @@ public class BuildConfig
 
   public static String getVersion ()
   {
-    //return _build.getValue("version", "0");
     // TODO: Fix this.
+    //return _build.getValue("datdec.version", "0");
     return "2.3-SNAPSHOT";
   }
 }
