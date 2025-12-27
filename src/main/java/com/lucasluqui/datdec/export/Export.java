@@ -2,6 +2,7 @@ package com.lucasluqui.datdec.export;
 
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
+import com.lucasluqui.datdec.util.StringUtil;
 import com.threerings.export.BinaryImporter;
 import com.threerings.export.XMLExporter;
 
@@ -131,8 +132,9 @@ public class Export
         out.close();
         return;
       }
-      System.out.println("read=" + object.getClass());
+      System.out.println("Exporting " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
       out.writeObject(object);
+      System.out.println("Successfully exported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())));
     }
   }
 
