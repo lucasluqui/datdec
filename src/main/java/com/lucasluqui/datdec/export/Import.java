@@ -12,10 +12,13 @@ import java.util.List;
 
 public class Import
 {
-  private static final boolean COMPRESS = true;
-
   public static void importSingle (File file)
   {
+    if (file.getName().contains("colordefs")) {
+      ColorDefs.importColorDefs(file);
+      return;
+    }
+
     convert(file);
   }
 
