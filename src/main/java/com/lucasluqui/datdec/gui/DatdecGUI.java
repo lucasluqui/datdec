@@ -45,7 +45,7 @@ public class DatdecGUI
     guiFrame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
     guiFrame.setResizable(false);
     guiFrame.setLocationRelativeTo(null);
-    guiFrame.setTitle("datdec (" + BuildConfig.getVersion() + ")");
+    guiFrame.setTitle("datdec " + BuildConfig.getVersion());
     guiFrame.setBounds(100, 100, 325, 300);
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     guiFrame.getContentPane().setLayout(null);
