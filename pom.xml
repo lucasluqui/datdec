@@ -6,7 +6,7 @@
   <groupId>com.lucasluqui</groupId>
   <artifactId>datdec</artifactId>
   <packaging>jar</packaging>
-  <version>2.4.1-SNAPSHOT</version>
+  <version>2.4.1</version>
 
   <name>datdec</name>
   <description>Tool to export/import .dat/.xml files used in the game Spiral Knights.</description>
