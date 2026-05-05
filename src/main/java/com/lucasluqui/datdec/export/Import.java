@@ -58,8 +58,8 @@ public class Import
         return;
       }
       System.out.println("Importing " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
-      // be = BinaryExporter::writeObject
-      out.be(object);
+      // bf = BinaryExporter::writeObject
+      out.bf(object);
       System.out.println("Successfully imported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
     }
   }

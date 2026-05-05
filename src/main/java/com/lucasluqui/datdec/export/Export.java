@@ -66,8 +66,8 @@ public class Export
         return;
       }
       System.out.println("Exporting " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
-      // be = XMLExporter::writeObject
-      out.be(object);
+      // bf = XMLExporter::writeObject
+      out.bf(object);
       System.out.println("Successfully exported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())));
     }
   }
