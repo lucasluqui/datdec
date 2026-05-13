@@ -5,7 +5,7 @@ Simple tool that acts as a wrapper for [clyde](https://github.com/threerings/cly
 To build datdec follow these steps:
 
 1. Prerequisites
-    - Java 21 JDK installed.
+    - Java 25 JDK installed.
     - [Maven](https://maven.apache.org/download.cgi) installed:
         - **Windows**: Download the ZIP from the link above, extract, then add `bin/` to your `PATH`.
         - **macOS (Homebrew)**: `brew install maven`.
