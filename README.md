@@ -1,6 +1,9 @@
 # datdec
 Simple tool that acts as a wrapper for [clyde](https://github.com/threerings/clyde)'s export tools, allowing interaction with such through both CLI and GUI.
 
+> [!NOTE]
+> datdec has to be run with a Java 25 JVM. Older JVM versions will fail.
+
 ## Building From Source
 To build datdec follow these steps:
 
