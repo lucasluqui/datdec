@@ -92,6 +92,6 @@ jobs:
         with:
           tag_name: ${{ steps.extract-version.outputs.version }}
           name: datdec ${{ steps.extract-version.outputs.version }}
-          draft: true
+          draft: false
           prerelease: false
           files: datdec-${{ steps.extract-version.outputs.version }}.zip
