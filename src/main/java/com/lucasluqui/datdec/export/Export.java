@@ -58,8 +58,8 @@ public class Export
 
     while (true) {
       try {
-        // pL = BinaryImporter::readObject
-        object = in.pL();
+        // pM = BinaryImporter::readObject
+        object = in.pM();
       } catch (Exception e) {
         in.close();
         out.close();
