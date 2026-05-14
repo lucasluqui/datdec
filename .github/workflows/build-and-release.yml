@@ -8,6 +8,7 @@ permissions:
 
 jobs:
   build-and-release:
+    if: contains(toLower(github.event.head_commit.message), 'prepare for release')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
