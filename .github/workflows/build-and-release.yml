@@ -81,6 +81,13 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Copy platform start scripts
+        run: |
+          # Create copies of the start scripts.
+          cp etc/start-datdec.bat datdec.bat
+          cp etc/start-datdec.sh datdec.sh
+          echo "Scripts copied."
+
       #- name: Create README.txt
       #  run: |
       #    cat > README.txt << 'EOF'
@@ -88,7 +95,7 @@ jobs:
       #    EOF
 
       - name: Create ZIP archive
-        run: zip -j "datdec-${{ steps.extract-version.outputs.version }}.zip" target/datdec.jar etc/start-datdec.bat #README.txt
+        run: zip -j "datdec-${{ steps.extract-version.outputs.version }}.zip" target/datdec.jar datdec.bat datdec.sh #README.txt
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
