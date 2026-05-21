@@ -13,7 +13,7 @@ public class DatdecGUI
   /**
    * Launch the application GUI.
    */
-  public static void startGUI ()
+  public static void init ()
   {
     EventQueue.invokeLater(() -> {
       try {

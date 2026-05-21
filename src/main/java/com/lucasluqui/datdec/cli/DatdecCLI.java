@@ -4,11 +4,10 @@ import com.lucasluqui.datdec.BuildConfig;
 import com.lucasluqui.datdec.export.Import;
 import com.lucasluqui.datdec.export.Export;
 import com.lucasluqui.datdec.DatdecSettings;
+import com.lucasluqui.datdec.gui.DatdecGUI;
 import org.apache.commons.cli.*;
 
 import java.io.File;
-
-import static com.lucasluqui.datdec.gui.DatdecGUI.startGUI;
 
 public class DatdecCLI
 {
@@ -31,7 +30,7 @@ public class DatdecCLI
         System.out.printf("datdec %s\n", BuildConfig.getVersion());
         processOptions(cmd, options);
       } else {
-        startGUI();
+        DatdecGUI.init();
       }
 
     } catch (ParseException e) {

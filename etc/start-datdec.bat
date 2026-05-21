@@ -13,6 +13,6 @@ if exist "%here%\.\java_vm\bin\java.exe" (
     set "javaExe=java"
 )
 
-"%javaExe%" -classpath "%here%\.\datdec.jar;%here%\.\code\projectx-pcode.jar" com.lucasluqui.datdec.cli.DatdecCLI
+"%javaExe%" -classpath "%here%\.\datdec.jar;%here%\.\code\projectx-pcode.jar" com.lucasluqui.datdec.DatdecApp
 
 pause

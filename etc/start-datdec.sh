@@ -14,4 +14,4 @@ else
     javaExe="java"
 fi
 
-"$javaExe" -classpath "$here/datdec.jar:$here/code/projectx-pcode.jar" com.lucasluqui.datdec.cli.DatdecCLI
+"$javaExe" -classpath "$here/datdec.jar:$here/code/projectx-pcode.jar" com.lucasluqui.datdec.DatdecApp
