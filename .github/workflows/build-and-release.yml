@@ -88,7 +88,7 @@ jobs:
       #    EOF
 
       - name: Create ZIP archive
-        run: zip -j "datdec-${{ steps.extract-version.outputs.version }}.zip" target/datdec.jar #README.txt
+        run: zip -j "datdec-${{ steps.extract-version.outputs.version }}.zip" target/datdec.jar etc/start-datdec.bat #README.txt
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
