@@ -9,6 +9,8 @@ if exist "%here%\.\java_vm\bin\java.exe" (
     set "javaExe=%here%\.\java_vm\bin\java.exe"
 ) else if exist "%here%\..\runtime\bin\java.exe" (
     set "javaExe=%here%\..\runtime\bin\java.exe"
+) else (
+    set "javaExe=java"
 )
 
 "%javaExe%" -classpath "%here%\.\datdec.jar;%here%\.\code\projectx-pcode.jar" com.lucasluqui.datdec.cli.DatdecCLI

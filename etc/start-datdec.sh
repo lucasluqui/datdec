@@ -11,8 +11,7 @@ if [[ -f "$here/java_vm/bin/java" ]]; then
 elif [[ -f "$here/../runtime/bin/java" ]]; then
     javaExe="$here/../runtime/bin/java"
 else
-    echo "ERROR: No Java runtime found."
-    exit 1
+    javaExe="java"
 fi
 
 "$javaExe" -classpath "$here/datdec.jar:$here/code/projectx-pcode.jar" com.lucasluqui.datdec.cli.DatdecCLI
