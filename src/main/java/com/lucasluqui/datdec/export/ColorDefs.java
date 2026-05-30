@@ -1,5 +1,6 @@
 package com.lucasluqui.datdec.export;
 
+import com.threerings.media.image.ColorPository;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

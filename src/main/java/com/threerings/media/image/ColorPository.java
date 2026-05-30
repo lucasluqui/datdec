@@ -17,7 +17,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-package com.lucasluqui.datdec.export;
+package com.threerings.media.image;
 
 import java.util.Collection;
 import java.io.Serializable;
@@ -117,7 +117,7 @@ public class ColorPository implements Serializable
   }
 
   /** Our mapping from class names to class records. */
-  protected HashIntMap<ClassRecord> _classes = new HashIntMap<ClassRecord>();
+  public HashIntMap<ClassRecord> _classes = new HashIntMap<ClassRecord>();
 
   /** Increase this value when object's serialized state is impacted by
    * a class change (modification of fields, inheritance). */
