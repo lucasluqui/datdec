@@ -50,8 +50,8 @@ public class Import
 
     while (true) {
       try {
-        // qB = XMLImporter::readObject
-        object = in.qb();
+        // qd = XMLImporter::readObject
+        object = in.qd();
       } catch (Exception e) {
         in.close();
         out.close();
