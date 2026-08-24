@@ -26,6 +26,9 @@ public class Export
   {
     List<String> fileNames = FileUtil.fileNamesInDirectory("rsrc/config/");
     for (String fileName : fileNames) {
+      // special delivery for parma.
+      if (fileName.contains("colordefs")) continue;
+
       if (fileName.endsWith(".dat")) convert(new File(PathUtil.getPathToConfig(fileName)));
     }
     return fileNames.size();
