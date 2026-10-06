@@ -61,16 +61,16 @@ public class Export
 
     while (true) {
       try {
-        // qf = BinaryImporter::readObject
-        object = in.qf();
+        // qe = BinaryImporter::readObject
+        object = in.qe();
       } catch (Exception e) {
         in.close();
         out.close();
         return;
       }
       System.out.println("Exporting " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
-      // bg = XMLExporter::writeObject
-      out.bg(object);
+      // bf = XMLExporter::writeObject
+      out.bf(object);
       System.out.println("Successfully exported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())));
     }
   }

@@ -50,16 +50,16 @@ public class Import
 
     while (true) {
       try {
-        // qf = XMLImporter::readObject
-        object = in.qf();
+        // qe = XMLImporter::readObject
+        object = in.qe();
       } catch (Exception e) {
         in.close();
         out.close();
         return;
       }
       System.out.println("Importing " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
-      // bg = BinaryExporter::writeObject
-      out.bg(object);
+      // bf = BinaryExporter::writeObject
+      out.bf(object);
       System.out.println("Successfully imported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
     }
   }
