@@ -2,12 +2,15 @@ package com.lucasluqui.datdec.export;
 
 import com.lucasluqui.datdec.util.FileUtil;
 import com.lucasluqui.datdec.util.PathUtil;
+import com.lucasluqui.datdec.util.ReflectionUtil;
 import com.lucasluqui.datdec.util.StringUtil;
 import com.threerings.export.BinaryImporter;
 import com.threerings.export.XMLExporter;
 
 import java.awt.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class Export
@@ -59,18 +62,25 @@ public class Export
 
     Object object = null;
 
+    Method readObject = getReadObjectMethod();
+    Method writeObject = getWriteObjectMethod();
+
     while (true) {
       try {
-        // qe = BinaryImporter::readObject
-        object = in.qe();
+        object = readObject.invoke(in);
       } catch (Exception e) {
         in.close();
         out.close();
         return;
       }
       System.out.println("Exporting " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())) + "...");
-      // bf = XMLExporter::writeObject
-      out.bf(object);
+      try {
+        writeObject.invoke(out, object);
+      } catch (InvocationTargetException e) {
+        throw new RuntimeException(e.getCause());
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
       System.out.println("Successfully exported " + StringUtil.sanitizedClassName(String.valueOf(object.getClass())));
     }
   }
@@ -88,4 +98,31 @@ public class Export
     }
     return sb.toString();
   }
+
+  /**
+   * Finds BinaryImporter::readObject by signature: a public instance method that takes no
+   * arguments and returns Object. Its name is obfuscated and may change between releases.
+   */
+  private static Method getReadObjectMethod ()
+  {
+    if (_readObject == null) {
+      _readObject = ReflectionUtil.findMethod(BinaryImporter.class, Object.class);
+    }
+    return _readObject;
+  }
+
+  /**
+   * Finds XMLExporter::writeObject by signature: a public instance method that takes a
+   * single Object argument and returns void. Its name is obfuscated and may change between releases.
+   */
+  private static Method getWriteObjectMethod ()
+  {
+    if (_writeObject == null) {
+      _writeObject = ReflectionUtil.findMethod(XMLExporter.class, void.class, Object.class);
+    }
+    return _writeObject;
+  }
+
+  private static Method _readObject;
+  private static Method _writeObject;
 }
