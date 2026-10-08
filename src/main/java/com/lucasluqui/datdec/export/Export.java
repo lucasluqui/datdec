@@ -100,8 +100,7 @@ public class Export
   }
 
   /**
-   * Finds BinaryImporter::readObject by signature: a public instance method that takes no
-   * arguments and returns Object. Its name is obfuscated and may change between releases.
+   * Finds BinaryImporter::readObject by signature.
    */
   private static Method getReadObjectMethod ()
   {
@@ -112,8 +111,7 @@ public class Export
   }
 
   /**
-   * Finds XMLExporter::writeObject by signature: a public instance method that takes a
-   * single Object argument and returns void. Its name is obfuscated and may change between releases.
+   * Finds XMLExporter::writeObject by signature.
    */
   private static Method getWriteObjectMethod ()
   {
